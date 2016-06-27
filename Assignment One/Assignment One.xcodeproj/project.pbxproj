@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		25BC1C901D1B198D006824C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BC1C8F1D1B198D006824C1 /* AppDelegate.swift */; };
-		25BC1C921D1B198D006824C1 /* SimulationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BC1C911D1B198D006824C1 /* SimulationController.swift */; };
+		25BC1C921D1B198D006824C1 /* SimulationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BC1C911D1B198D006824C1 /* SimulationViewController.swift */; };
 		25BC1C941D1B198D006824C1 /* InstrumentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BC1C931D1B198D006824C1 /* InstrumentationViewController.swift */; };
 		25BC1C971D1B198D006824C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25BC1C951D1B198D006824C1 /* Main.storyboard */; };
 		25BC1C991D1B198D006824C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25BC1C981D1B198D006824C1 /* Assets.xcassets */; };
@@ -18,7 +18,7 @@
 /* Begin PBXFileReference section */
 		25BC1C8C1D1B198C006824C1 /* Assignment One.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Assignment One.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		25BC1C8F1D1B198D006824C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		25BC1C911D1B198D006824C1 /* SimulationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationController.swift; sourceTree = "<group>"; };
+		25BC1C911D1B198D006824C1 /* SimulationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationViewController.swift; sourceTree = "<group>"; };
 		25BC1C931D1B198D006824C1 /* InstrumentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentationViewController.swift; sourceTree = "<group>"; };
 		25BC1C961D1B198D006824C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		25BC1C981D1B198D006824C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -57,7 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				25BC1C8F1D1B198D006824C1 /* AppDelegate.swift */,
-				25BC1C911D1B198D006824C1 /* SimulationController.swift */,
+				25BC1C911D1B198D006824C1 /* SimulationViewController.swift */,
 				25BC1C931D1B198D006824C1 /* InstrumentationViewController.swift */,
 				25BC1C951D1B198D006824C1 /* Main.storyboard */,
 				25BC1C981D1B198D006824C1 /* Assets.xcassets */,
@@ -140,7 +140,7 @@
 			files = (
 				25BC1C941D1B198D006824C1 /* InstrumentationViewController.swift in Sources */,
 				25BC1C901D1B198D006824C1 /* AppDelegate.swift in Sources */,
-				25BC1C921D1B198D006824C1 /* SimulationController.swift in Sources */,
+				25BC1C921D1B198D006824C1 /* SimulationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +292,7 @@
 				25BC1CA21D1B198D006824C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

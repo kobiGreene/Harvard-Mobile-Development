@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SimulationController: UIViewController {
+class SimulationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
