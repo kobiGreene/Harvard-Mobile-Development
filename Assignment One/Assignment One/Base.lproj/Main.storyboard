@@ -87,15 +87,16 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4jU-gI-1qE">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="531"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="VhX-8M-m5B">
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="VhX-8M-m5B">
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="531"/>
                                                 <subviews>
                                                     <slider opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalHuggingPriority="248" horizontalCompressionResistancePriority="748" verticalCompressionResistancePriority="748" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="3" translatesAutoresizingMaskIntoConstraints="NO" id="toZ-BS-Zcs" userLabel="Grid Size">
-                                                        <rect key="frame" x="98" y="0.0" width="104" height="107"/>
+                                                        <rect key="frame" x="98" y="0.0" width="104" height="32"/>
                                                         <accessibility key="accessibilityConfiguration" label="Grid Size"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="100" id="LyG-yv-dSJ"/>
                                                             <constraint firstAttribute="height" constant="31" id="c4z-lH-Ik5"/>
+                                                            <constraint firstAttribute="height" constant="31" id="hZj-kb-MNv"/>
                                                         </constraints>
                                                         <variation key="default">
                                                             <mask key="constraints">
@@ -104,10 +105,11 @@
                                                         </variation>
                                                     </slider>
                                                     <slider opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalHuggingPriority="248" horizontalCompressionResistancePriority="748" verticalCompressionResistancePriority="748" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="3" translatesAutoresizingMaskIntoConstraints="NO" id="6qR-zH-swY" userLabel="Frames/seconds">
-                                                        <rect key="frame" x="98" y="116" width="104" height="107.5"/>
+                                                        <rect key="frame" x="98" y="46" width="104" height="32"/>
                                                         <accessibility key="accessibilityConfiguration" label="Frames/seconds"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="31" id="Bdp-b6-WGr"/>
+                                                            <constraint firstAttribute="height" constant="31" id="IUa-c0-Uc6"/>
                                                             <constraint firstAttribute="width" constant="100" id="oU4-2u-yCQ"/>
                                                         </constraints>
                                                         <variation key="default">
@@ -117,7 +119,7 @@
                                                         </variation>
                                                     </slider>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PQi-I5-nCU" userLabel="Generation">
-                                                        <rect key="frame" x="101.5" y="232.5" width="97" height="31"/>
+                                                        <rect key="frame" x="102" y="92" width="97" height="31"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="97" id="89v-de-JMz"/>
                                                             <constraint firstAttribute="height" constant="31" id="DA2-a6-54v"/>
@@ -126,7 +128,7 @@
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ys-6T-uH8" userLabel="Reset">
-                                                        <rect key="frame" x="130.5" y="273.5" width="39" height="257.5"/>
+                                                        <rect key="frame" x="131" y="138" width="39" height="393"/>
                                                         <state key="normal" title="Reset"/>
                                                     </button>
                                                 </subviews>
@@ -290,8 +292,10 @@
                             <mask key="constraints">
                                 <include reference="DMB-fp-hoD"/>
                                 <include reference="Rze-VN-UQy"/>
-                                <include reference="UK5-Pq-pT1"/>
-                                <include reference="nOY-Uu-gIM"/>
+                                <exclude reference="UK5-Pq-pT1"/>
+                                <exclude reference="a4W-bj-GVu"/>
+                                <exclude reference="nOY-Uu-gIM"/>
+                                <exclude reference="4FP-Rz-UEV"/>
                             </mask>
                         </variation>
                     </view>
