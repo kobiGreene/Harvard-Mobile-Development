@@ -119,7 +119,7 @@
                                                         </variation>
                                                     </slider>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PQi-I5-nCU" userLabel="Generation">
-                                                        <rect key="frame" x="102" y="92" width="97" height="31"/>
+                                                        <rect key="frame" x="101.5" y="92" width="97" height="31"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="97" id="89v-de-JMz"/>
                                                             <constraint firstAttribute="height" constant="31" id="DA2-a6-54v"/>
@@ -128,7 +128,7 @@
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ys-6T-uH8" userLabel="Reset">
-                                                        <rect key="frame" x="131" y="138" width="39" height="393"/>
+                                                        <rect key="frame" x="130.5" y="138" width="39" height="393"/>
                                                         <state key="normal" title="Reset"/>
                                                     </button>
                                                 </subviews>
