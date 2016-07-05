@@ -18,10 +18,10 @@ class Problem2ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.title = "Problem 2"
-        //creats initial number of cells
-        for _ in 0..<10 {
+        //creates initial number of cells
+        for _ in range {
             var subArray = [Bool]()
-            for _ in 0..<10 {
+            for _ in range {
                 if arc4random_uniform(3) == 1 {
                     // set current cell to alive
                     subArray.append(true)
@@ -33,8 +33,8 @@ class Problem2ViewController: UIViewController {
         }
         //calculates total number of alive cells
         var totalAlive = 0
-        for i in 0..<10 {
-            for j in 0..<10 {
+        for i in range {
+            for j in range {
                 if beforeCells[i][j].boolValue == true {
                     totalAlive += 1
                 }
@@ -56,11 +56,9 @@ class Problem2ViewController: UIViewController {
         var surrondingCellAliveCounter = 0
         //var surrondingCellDeadCounter = 0
         
-        
-        for y in 0..<10 {
-            for x in 0..<10 {
+        for y in range {
+            for x in range {
                 surrondingCellAliveCounter = 0
-                //surrondingCellDeadCounter = 0
                 var rightCell = (0,0)
                 var leftCell = (0,0)
                 var belowCell = (0,0)
@@ -154,8 +152,8 @@ class Problem2ViewController: UIViewController {
             }
         }
         //calculates total number of alive cells
-        for i in 0..<10 {
-            for j in 0..<10 {
+        for i in range {
+            for j in range {
                 if afterCells[i][j].boolValue == true {
                     totalAlive += 1
                 }

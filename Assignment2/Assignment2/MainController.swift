@@ -7,6 +7,8 @@
 //
 
 import UIKit
+//Dimensions for the Array
+var range = 0..<10
 
 class MainController: UIViewController {
 
