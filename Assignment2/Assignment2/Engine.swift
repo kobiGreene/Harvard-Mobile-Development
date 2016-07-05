@@ -98,6 +98,40 @@ func neighbors(cell: (y: Int, x: Int) ) -> Array<(Int,Int)>{
     let surrondingCells = [aboveCell, diagonalUpLeft, diagonalUpRIght, rightCell, leftCell, belowCell, diagonalDownLeft, diagonalDownRight]
     return surrondingCells
 }
+
+func step2(cellA: Array<Array<Bool>>) -> Array<Array<Bool>>{
+    var surrondingCellAliveCounter = 0
+    var cellArr = cellA
+    for y in range {
+        for x in range {
+            surrondingCellAliveCounter = 0
+            let neighborCells = neighbors((y: y, x: x))
+            for cell in neighborCells {
+                if cellArr[cell.0][cell.1].boolValue == true {
+                    surrondingCellAliveCounter += 1
+                }
+            }
+            // switching on the value of the current cell
+            switch cellArr[y][x].boolValue {
+            // Checking for the rules for the game of life
+            case true:
+                if surrondingCellAliveCounter < 2 {
+                    cellArr[y][x] = false
+                }else if surrondingCellAliveCounter == 2 || surrondingCellAliveCounter == 3 {
+                    cellArr[y][x] = true
+                }else if surrondingCellAliveCounter > 3{
+                    cellArr[y][x] = false
+                }
+            case false:
+                if surrondingCellAliveCounter == 3 {
+                    cellArr[y][x] = true
+                }
+            }
+        }
+    }
+    return cellArr
+}
+
 //calculates total number of alive cells
 func calculateTotalAlive(cellsArr: Array<Array<Bool>>) -> Int{
     var alive = 0

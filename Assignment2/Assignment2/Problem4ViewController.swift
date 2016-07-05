@@ -31,37 +31,10 @@ class Problem4ViewController: UIViewController {
     }
     
     @IBAction func buttonPressed(sender: AnyObject) {
-        var totalAlive = 0
-        var surrondingCellAliveCounter = 0
         
-        for y in range {
-            for x in range {
-                surrondingCellAliveCounter = 0
-                let neighborCells = neighbors((y: y, x: x))
-                for cell in neighborCells {
-                    if afterCells[cell.0][cell.1].boolValue == true {
-                        surrondingCellAliveCounter += 1
-                    }
-                }
-                // switching on the value of the current cell
-                switch afterCells[y][x].boolValue {
-                // Checking for the rules for the game of life
-                case true:
-                    if surrondingCellAliveCounter < 2 {
-                        afterCells[y][x] = false
-                    }else if surrondingCellAliveCounter == 2 || surrondingCellAliveCounter == 3 {
-                        afterCells[y][x] = true
-                    }else if surrondingCellAliveCounter > 3{
-                        afterCells[y][x] = false
-                    }
-                case false:
-                    if surrondingCellAliveCounter == 3 {
-                        afterCells[y][x] = true
-                    }
-                }
-            }
-        }
         //calculates total number of alive cells
+        var totalAlive = 0
+        afterCells = step2(afterCells)
         totalAlive = calculateTotalAlive(afterCells)
         
         textView.text = "Living cells:" + String(totalAlive)
