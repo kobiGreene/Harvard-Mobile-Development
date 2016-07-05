@@ -15,6 +15,7 @@ class MainController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.title = "Problem 1"
     }
 
     override func didReceiveMemoryWarning() {

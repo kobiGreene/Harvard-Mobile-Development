@@ -19,15 +19,8 @@ class Problem4ViewController: UIViewController {
         self.title = "Problem 4"
         
         beforeCells = step(beforeCells)
-        print(beforeCells)
         var totalAlive = 0
-        for i in range {
-            for j in range {
-                if beforeCells[i][j].boolValue == true {
-                    totalAlive += 1
-                }
-            }
-        }
+        totalAlive = calculateTotalAlive(beforeCells)
         afterCells = beforeCells
         textView.text = "Living cells:" + String(totalAlive)
     }
@@ -69,13 +62,7 @@ class Problem4ViewController: UIViewController {
             }
         }
         //calculates total number of alive cells
-        for i in range {
-            for j in range {
-                if afterCells[i][j].boolValue == true {
-                    totalAlive += 1
-                }
-            }
-        }
+        totalAlive = calculateTotalAlive(afterCells)
         
         textView.text = "Living cells:" + String(totalAlive)
     }

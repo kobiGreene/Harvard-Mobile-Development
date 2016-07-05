@@ -10,6 +10,7 @@ import Foundation
 
 func step(cellsArr: Array<Array<Bool>>) -> Array<Array<Bool>> {
     var beforeCells = cellsArr
+    //creates intitial cells given a range interval, in this case range is 0 through 9
     for _ in range {
         var subArray = [Bool]()
         for _ in range {
@@ -17,9 +18,11 @@ func step(cellsArr: Array<Array<Bool>>) -> Array<Array<Bool>> {
                 // set current cell to alive
                 subArray.append(true)
             }else{
+                // Set current cell to dead
                 subArray.append(false)
             }
         }
+        //Add the smaller array to larger array, done every row
         beforeCells.append(subArray)
     }
     return beforeCells
@@ -95,4 +98,31 @@ func neighbors(cell: (y: Int, x: Int) ) -> Array<(Int,Int)>{
     let surrondingCells = [aboveCell, diagonalUpLeft, diagonalUpRIght, rightCell, leftCell, belowCell, diagonalDownLeft, diagonalDownRight]
     return surrondingCells
 }
+//calculates total number of alive cells
+func calculateTotalAlive(cellsArr: Array<Array<Bool>>) -> Int{
+    var alive = 0
+    for i in range {
+        for j in range {
+            if cellsArr[i][j].boolValue == true {
+                alive += 1
+            }
+        }
+    }
+    
+    return alive
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
