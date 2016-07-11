@@ -61,12 +61,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func iterate(sender: AnyObject) {
-        
-        afterCells = GridView().step2(grid)
-        grid = afterCells
-        //print(afterCells)
-        print(grid)
-        GridView().setNeedsDisplayInRect(self.view.frame)
+        GridView().iterateCells()
     }
 
 }

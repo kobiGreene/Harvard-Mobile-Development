@@ -7,9 +7,9 @@
 //
 
 import UIKit
+
+
 var grid = [[CellState]]()
-
-
 @IBDesignable
 class GridView: UIView {
     @IBInspectable var rows: Int = 20 {
@@ -29,16 +29,16 @@ class GridView: UIView {
     @IBInspectable var diedColor: UIColor = UIColor.redColor()
     @IBInspectable var gridColor: UIColor = UIColor.blackColor()
     @IBInspectable var gridWidth: CGFloat = 30.0
-    
-    
+
+   
     var lineRows: Int!
     var lineCols: Int!
     var width: CGFloat!
     var height: CGFloat!
     var maxCol: Int!
     var maxRows: Int!
-
     override func didMoveToWindow() {
+          print(neighbors((y: 15, x: 11)))
         for _ in 0..<rows {
             var subArray = [CellState]()
             for _ in 0..<cols {
@@ -65,13 +65,13 @@ class GridView: UIView {
         height = rect.height / CGFloat(rows)
         for i in 0..<lineRows{
             gridPath.moveToPoint(CGPoint(x: bounds.origin.x, y: bounds.origin.y + height * CGFloat(i)))
-            gridPath.addLineToPoint(CGPoint(x: bounds.origin.x + width * CGFloat(rows) , y: bounds.origin.y + height * CGFloat(i)))
+            gridPath.addLineToPoint(CGPoint(x: bounds.origin.x + width * CGFloat(cols) , y: bounds.origin.y + height * CGFloat(i)))
             gridColor.setStroke()
             gridPath.stroke()
         }
         for i in 0..<lineCols {
             gridPath.moveToPoint(CGPoint(x: bounds.origin.x + width * CGFloat(i), y: bounds.origin.y))
-            gridPath.addLineToPoint(CGPoint(x: bounds.origin.x + width * CGFloat(i) , y: bounds.origin.y + height * CGFloat(height)))
+            gridPath.addLineToPoint(CGPoint(x: bounds.origin.x + width * CGFloat(i) , y: bounds.origin.y + height * CGFloat(cols)))
             gridColor.setStroke()
             gridPath.stroke()
         }
@@ -122,6 +122,7 @@ class GridView: UIView {
     }
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         var rect = CGRect(x:0, y: 0, width: width, height: height)
+        print(grid)
         print(width)
         for touch in touches {
             //print("Hello")
@@ -142,6 +143,7 @@ class GridView: UIView {
             }
         }
     }
+    
     func neighbors(cell: (y: Int, x: Int) ) -> Array<(Int,Int)>{
     
         maxCol = cols - 1
@@ -222,8 +224,8 @@ class GridView: UIView {
         maxRows = rows - 1
         var surrondingCellAliveCounter = 0
         var cellArr = cellA
-        for y in 0..<maxRows {
-            for x in 0..<maxCol {
+        for y in 0...maxRows {
+            for x in 0...maxCol {
                 surrondingCellAliveCounter = 0
                 let neighborCells = neighbors((y: y, x: x))
                 for cell in neighborCells {
@@ -246,6 +248,9 @@ class GridView: UIView {
                     if surrondingCellAliveCounter == 3 {
                         cellArr[y][x] = CellState.toggle(cellArr[y][x])
                     }
+                    else {
+                        cellArr[y][x] = cellArr[y][x]
+                    }
                 default:
                     cellArr[y][x] = cellArr[y][x]
                 }
@@ -253,7 +258,12 @@ class GridView: UIView {
         }
         return cellArr
     }
-    
+    func iterateCells() {
+        print(grid)
+        afterCells = step2(grid)
+        grid = afterCells
+        setNeedsDisplay()
+    }
 
 }
 
