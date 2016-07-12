@@ -39,6 +39,7 @@ class GridView: UIView {
     var maxRows: Int!
     override func didMoveToWindow() {
           //print(neighbors((y: 8, x: 5)))
+        //Init the grid Cells to empty 
         for _ in 0..<rows {
             var subArray = [CellState]()
             for _ in 0..<cols {
@@ -64,6 +65,7 @@ class GridView: UIView {
         lineCols = cols + 1
         width = rect.width / CGFloat(cols)
         height = rect.height / CGFloat(rows)
+        //Drawing the grid
         for i in 0..<lineRows{
             gridPath.moveToPoint(CGPoint(x: bounds.origin.x, y: bounds.origin.y + height * CGFloat(i)))
             gridPath.addLineToPoint(CGPoint(x: bounds.origin.x + width * CGFloat(cols) , y: bounds.origin.y + height * CGFloat(i)))
@@ -78,6 +80,7 @@ class GridView: UIView {
         }
         for y in 0..<rows{
             for x in 0..<cols {
+                //Draws circle
                 let center = findCenter(y, col: x, theWidth: width, theHeight: height)
                 //print(center)
                 let radius = width / 2
@@ -91,6 +94,7 @@ class GridView: UIView {
                                         clockwise: true)
                 
                 oval.lineWidth = arcWidth
+                //Changing color for circle based on status
                 switch grid[y][x].description(){
                     case "Living":
                         livingColor.setFill()
@@ -114,6 +118,7 @@ class GridView: UIView {
         }
         
     }
+    //finding the center of each cell to draw the circele
     func findCenter(row: Int, col: Int, theWidth: CGFloat, theHeight: CGFloat) -> CGPoint{
         let x1 = CGFloat(col) * theWidth
         let y1 = CGFloat(row) * theHeight
@@ -127,6 +132,7 @@ class GridView: UIView {
             //print("Hello")
                 for y in 0..<rows {
                     for x in 0..<cols {
+                        // creates rect that moves to check which cell was touched
                         rect.origin = CGPoint(x: 0.0 + width * CGFloat(x), y: 0 + height * CGFloat(y))
                         if CGRectContainsPoint(rect, touch.locationInView(self)){
                             //print("touched")
@@ -217,7 +223,7 @@ class GridView: UIView {
         let surrondingCells = [aboveCell, diagonalUpLeft, diagonalUpRIght, rightCell, leftCell, belowCell, diagonalDownLeft, diagonalDownRight]
         return surrondingCells
     }
-    
+    // Combining function to check neighbors with seeing which ones are alive
     func step2(cellA: Array<Array<CellState>>) -> Array<Array<CellState>>{
         maxCol = cols - 1
         maxRows = rows - 1
@@ -274,6 +280,7 @@ class GridView: UIView {
         }
         return afterCells
     }
+    //Function to go thorugh cells
     func iterateCells() {
         grid = step2(grid)
         //setNeedsDisplay()

@@ -13,7 +13,7 @@ enum CellState: String {
     case Empty = "Empty"
     case Born = "Born"
     case Died = "Died"
-    
+    //Description
     func description() -> String{
         switch self {
         case .Living:
@@ -26,10 +26,12 @@ enum CellState: String {
             return CellState.Died.rawValue
         }
     }
+    //All values
     func allValues() -> Array<CellState.RawValue> {
         let arrayCS: Array<CellState.RawValue> = [CellState.Living.rawValue, CellState.Empty.rawValue, CellState.Born.rawValue, CellState.Died.rawValue]
         return arrayCS
     }
+    //toggle functions
     static func toggle(value: CellState) -> CellState {
         switch value {
         case .Empty, .Died:
