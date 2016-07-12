@@ -72,6 +72,9 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="gridViewRef" destination="PwE-x9-Kkd" id="1SE-Kq-Acn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

@@ -38,7 +38,7 @@ class GridView: UIView {
     var maxCol: Int!
     var maxRows: Int!
     override func didMoveToWindow() {
-          print(neighbors((y: 15, x: 11)))
+          print(neighbors((y: 8, x: 5)))
         for _ in 0..<rows {
             var subArray = [CellState]()
             for _ in 0..<cols {
@@ -51,6 +51,7 @@ class GridView: UIView {
                 
             }
             grid.append(subArray)
+            afterCells.append(subArray)
         }
     }
     override func drawRect(rect: CGRect) {
@@ -122,7 +123,6 @@ class GridView: UIView {
     }
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         var rect = CGRect(x:0, y: 0, width: width, height: height)
-        print(grid)
         print(width)
         for touch in touches {
             //print("Hello")
@@ -137,7 +137,7 @@ class GridView: UIView {
                             grid[y][x] = CellState.toggle(grid[y][x])
                             print(grid[y][x])
                             //grid[y][x].
-                            setNeedsDisplay()
+                            setNeedsDisplayInRect(self.bounds)
                     }
                 }
             }
@@ -227,42 +227,57 @@ class GridView: UIView {
         for y in 0...maxRows {
             for x in 0...maxCol {
                 surrondingCellAliveCounter = 0
-                let neighborCells = neighbors((y: y, x: x))
+                let neighborCells = neighbors((y, x: x))
                 for cell in neighborCells {
-                    if cellArr[cell.0][cell.1].description() == "Living" || cellArr[cell.0][cell.1].description() == "Born" {
+                    if cellArr[cell.0][cell.1] == CellState.Living || cellArr[cell.0][cell.1] == CellState.Born {
                         surrondingCellAliveCounter += 1
                     }
                 }
+                print("\(y) \(x)")
+                print(surrondingCellAliveCounter)
                 // switching on the value of the current cell
                 switch cellArr[y][x].rawValue {
                 // Checking for the rules for the game of life
-                case "Living", "Born":
+                case "Living":
                     if surrondingCellAliveCounter < 2 {
-                        cellArr[y][x] = CellState.toggle(cellArr[y][x])
+                        afterCells[y][x] = CellState.Died
                     }else if surrondingCellAliveCounter == 2 || surrondingCellAliveCounter == 3 {
-                        cellArr[y][x] = cellArr[y][x]
+                        afterCells[y][x] = CellState.Living
                     }else if surrondingCellAliveCounter > 3{
-                        cellArr[y][x] = CellState.toggle(cellArr[y][x])
+                        afterCells[y][x] = CellState.Died
                     }
-                case "Died", "Empty":
+                case "Born":
+                    if surrondingCellAliveCounter < 2 {
+                        afterCells[y][x] = CellState.Died
+                    }else if surrondingCellAliveCounter == 2 || surrondingCellAliveCounter == 3 {
+                        afterCells[y][x] = CellState.Living
+                    }else if surrondingCellAliveCounter > 3{
+                        afterCells[y][x] = CellState.Died
+                    }
+                case "Died":
                     if surrondingCellAliveCounter == 3 {
-                        cellArr[y][x] = CellState.toggle(cellArr[y][x])
+                        afterCells[y][x] = CellState.Born
                     }
                     else {
-                        cellArr[y][x] = cellArr[y][x]
+                        afterCells[y][x] = CellState.Empty
+                    }
+                case "Empty":
+                    if surrondingCellAliveCounter == 3 {
+                        afterCells[y][x] = CellState.Born
+                    }
+                    else {
+                        afterCells[y][x] = CellState.Empty
                     }
                 default:
-                    cellArr[y][x] = cellArr[y][x]
+                    afterCells[y][x] = afterCells[y][x]
                 }
             }
         }
-        return cellArr
+        return afterCells
     }
     func iterateCells() {
-        print(grid)
-        afterCells = step2(grid)
-        grid = afterCells
-        setNeedsDisplay()
+        grid = step2(grid)
+        //setNeedsDisplay()
     }
 
 }

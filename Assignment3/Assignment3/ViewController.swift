@@ -40,7 +40,9 @@ enum CellState: String {
     }
 }
 var afterCells = [[CellState]]()
+
 class ViewController: UIViewController {
+    @IBOutlet var gridViewRef: GridView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +64,7 @@ class ViewController: UIViewController {
 
     @IBAction func iterate(sender: AnyObject) {
         GridView().iterateCells()
+        gridViewRef.setNeedsDisplay()
     }
 
 }
