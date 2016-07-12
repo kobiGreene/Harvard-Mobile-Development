@@ -39,7 +39,7 @@ enum CellState: String {
         }
     }
 }
-var afterCells = [[CellState]]()
+
 
 class ViewController: UIViewController {
     @IBOutlet var gridViewRef: GridView!
@@ -47,13 +47,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        var one = CellState.Living.description()
-        var two = CellState.Empty.allValues()
-        var three = CellState.toggle(CellState.Born)
-        print(one)
-        print(two)
-        print(three)
 
     }
 

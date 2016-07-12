@@ -8,7 +8,7 @@
 
 import UIKit
 
-
+var afterCells = [[CellState]]()
 var grid = [[CellState]]()
 @IBDesignable
 class GridView: UIView {
@@ -30,7 +30,7 @@ class GridView: UIView {
     @IBInspectable var gridColor: UIColor = UIColor.blackColor()
     @IBInspectable var gridWidth: CGFloat = 30.0
 
-   
+    
     var lineRows: Int!
     var lineCols: Int!
     var width: CGFloat!
@@ -38,7 +38,7 @@ class GridView: UIView {
     var maxCol: Int!
     var maxRows: Int!
     override func didMoveToWindow() {
-          print(neighbors((y: 8, x: 5)))
+          //print(neighbors((y: 8, x: 5)))
         for _ in 0..<rows {
             var subArray = [CellState]()
             for _ in 0..<cols {
@@ -123,19 +123,18 @@ class GridView: UIView {
     }
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         var rect = CGRect(x:0, y: 0, width: width, height: height)
-        print(width)
         for touch in touches {
             //print("Hello")
                 for y in 0..<rows {
                     for x in 0..<cols {
                         rect.origin = CGPoint(x: 0.0 + width * CGFloat(x), y: 0 + height * CGFloat(y))
                         if CGRectContainsPoint(rect, touch.locationInView(self)){
-                            print("touched")
-                            print(y)
-                            print(x)
-                            print(grid[y][x])
+                            //print("touched")
+                            //print(y)
+                            //print(x)
+                            //print(grid[y][x])
                             grid[y][x] = CellState.toggle(grid[y][x])
-                            print(grid[y][x])
+                           // print(grid[y][x])
                             //grid[y][x].
                             setNeedsDisplayInRect(self.bounds)
                     }
@@ -233,8 +232,8 @@ class GridView: UIView {
                         surrondingCellAliveCounter += 1
                     }
                 }
-                print("\(y) \(x)")
-                print(surrondingCellAliveCounter)
+                //print("\(y) \(x)")
+                //print(surrondingCellAliveCounter)
                 // switching on the value of the current cell
                 switch cellArr[y][x].rawValue {
                 // Checking for the rules for the game of life
