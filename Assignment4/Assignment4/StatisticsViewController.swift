@@ -23,9 +23,6 @@ class StatisticsViewController: UIViewController {
         center.addObserver(self, selector: sel, name: "gridNoti", object: nil)
     }
     func watchForNotifications(notification:NSNotification) {
-        print(notification.userInfo!)
-        //print("\(notification.userInfo)")
-        //statGrid = notification.userInfo?.values as! GridProtocol
         
     }
     
