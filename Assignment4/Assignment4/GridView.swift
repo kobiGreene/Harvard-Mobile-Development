@@ -8,8 +8,8 @@
 
 import UIKit
 
-var afterCells = [[CellState]]()
-var sGrid = [[CellState]]()
+
+var sGrid: GridProtocol!
 @IBDesignable
 class GridView: UIView {
     @IBInspectable var rows: Int = 10 {
@@ -30,7 +30,7 @@ class GridView: UIView {
     @IBInspectable var gridColor: UIColor = UIColor.blackColor()
     @IBInspectable var gridWidth: CGFloat = 30.0
 
-    
+    var engine = AppDelegate.sharedInstance
     var lineRows: Int!
     var lineCols: Int!
     var width: CGFloat!
@@ -38,7 +38,7 @@ class GridView: UIView {
     var maxCol: Int!
     var maxRows: Int!
     override func didMoveToWindow() {
-          //print(neighbors((y: 8, x: 5)))
+        //print(neighbors((y: 8, x: 5)))
         //Init the grid Cells to empty 
         for _ in 0..<rows {
             var subArray = [CellState]()
@@ -51,8 +51,9 @@ class GridView: UIView {
                 subArray.append(cell)
                 
             }
-            sGrid.append(subArray)
-            afterCells.append(subArray)
+            //sGrid.append(subArray)
+            //afterCells.append(subArray)
+            sGrid = engine.grid
         }
     }
     override func drawRect(rect: CGRect) {
@@ -94,7 +95,7 @@ class GridView: UIView {
                 
                 oval.lineWidth = arcWidth
                 //Changing color for circle based on status
-                switch sGrid[y][x]{
+                switch sGrid[y,x]{
                     case .Living:
                         livingColor.setFill()
                         livingColor.setStroke()
@@ -130,9 +131,10 @@ class GridView: UIView {
                 for x in 0..<cols {
                     // creates rect that moves to check which cell was touched
                     rect.origin = CGPoint(x: 0.0 + width * CGFloat(x), y: 0 + height * CGFloat(y))
+                    //SimulationViewController().engineSingleton.grid[y,x] = CellState.toggle( SimulationViewController().engineSingleton.grid[y,x])
                     if CGRectContainsPoint(rect, touch.locationInView(self)){
-                        sGrid[y][x] = CellState.toggle(sGrid[y][x])
-                       // AppDelegate().engineSingleton.grid = grid
+                        sGrid[y,x] = CellState.toggle(sGrid[y,x])
+                      
                         setNeedsDisplay()
                     }
                 }

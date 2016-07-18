@@ -13,10 +13,14 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
+    private static var _sharedInstance = StandardEngine(rows: 10, cols: 10)
+    static var sharedInstance: EngineProtocol {
+            return _sharedInstance
+    }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
         return true
     }
 
