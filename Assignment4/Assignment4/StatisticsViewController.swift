@@ -14,10 +14,19 @@ class StatisticsViewController: UIViewController {
     @IBOutlet weak var bornLabel: UILabel!
     @IBOutlet weak var diedLabel: UILabel!
     @IBOutlet weak var emptyLabel: UILabel!
-    
+    var statGrid: GridProtocol!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        let sel = #selector(StatisticsViewController.watchForNotifications(_:))
+        let center  = NSNotificationCenter.defaultCenter()
+        center.addObserver(self, selector: sel, name: "gridNoti", object: nil)
+    }
+    func watchForNotifications(notification:NSNotification) {
+        print(notification.userInfo!)
+        //print("\(notification.userInfo)")
+        //statGrid = notification.userInfo?.values as! GridProtocol
+        
     }
     
     override func didReceiveMemoryWarning() {

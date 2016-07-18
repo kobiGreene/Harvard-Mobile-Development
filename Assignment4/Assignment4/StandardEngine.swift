@@ -79,7 +79,7 @@ class StandardEngine: EngineProtocol {
             }
             
         }
-        return afterCells
+                return afterCells
 
         }
 }

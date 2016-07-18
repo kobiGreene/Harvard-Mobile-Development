@@ -18,7 +18,7 @@ class SimulationViewController: UIViewController, EngineDelegate {
         // Do any additional setup after loading the view, typically from a nib.
         
         engine.delegate = self
-    
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,7 +29,11 @@ class SimulationViewController: UIViewController, EngineDelegate {
         //gridView.setNeedsDisplay()
     }
     @IBAction func iterateGrid(sender: AnyObject) {
+        // sGrid is used for the GridView
         sGrid = engine.step()
+        let center = NSNotificationCenter.defaultCenter()
+        let gridNoti = NSNotification(name: "gridNoti",object: nil, userInfo: ["notification": sGrid as! AnyObject])
+        center.postNotification(gridNoti)
         gridView.setNeedsDisplay()
     }
 
