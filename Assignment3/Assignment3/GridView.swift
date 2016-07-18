@@ -237,9 +237,9 @@ class GridView: UIView {
                 //print("\(y) \(x)")
                 //print(surrondingCellAliveCounter)
                 // switching on the value of the current cell
-                switch cellArr[y][x].rawValue {
+                switch cellArr[y][x] {
                 // Checking for the rules for the game of life
-                case "Living":
+                case .Living:
                     if surrondingCellAliveCounter < 2 {
                         afterCells[y][x] = CellState.Died
                     }else if surrondingCellAliveCounter == 2 || surrondingCellAliveCounter == 3 {
@@ -247,7 +247,7 @@ class GridView: UIView {
                     }else if surrondingCellAliveCounter > 3{
                         afterCells[y][x] = CellState.Died
                     }
-                case "Born":
+                case .Born:
                     if surrondingCellAliveCounter < 2 {
                         afterCells[y][x] = CellState.Died
                     }else if surrondingCellAliveCounter == 2 || surrondingCellAliveCounter == 3 {
@@ -255,22 +255,20 @@ class GridView: UIView {
                     }else if surrondingCellAliveCounter > 3{
                         afterCells[y][x] = CellState.Died
                     }
-                case "Died":
+                case .Died:
                     if surrondingCellAliveCounter == 3 {
                         afterCells[y][x] = CellState.Born
                     }
                     else {
                         afterCells[y][x] = CellState.Empty
                     }
-                case "Empty":
+                case .Empty:
                     if surrondingCellAliveCounter == 3 {
                         afterCells[y][x] = CellState.Born
                     }
                     else {
                         afterCells[y][x] = CellState.Empty
                     }
-                default:
-                    afterCells[y][x] = afterCells[y][x]
                 }
             }
         }

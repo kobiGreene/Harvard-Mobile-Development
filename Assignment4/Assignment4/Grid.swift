@@ -18,8 +18,8 @@ class Grid: GridProtocol {
         gridArr = Array(count: rows, repeatedValue: Array(count: cols, repeatedValue: CellState.Empty))
     }
     func neighbors(gridPos: (Int,Int)) -> [(Int, Int)] {
-        var maxCol = cols - 1
-        var maxRows = rows - 1
+        let maxCol = cols - 1
+        let maxRows = rows - 1
         var rightCell = (0,0)
         var leftCell = (0,0)
         var belowCell = (0,0)

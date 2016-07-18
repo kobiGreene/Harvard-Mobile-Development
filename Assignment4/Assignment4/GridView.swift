@@ -9,15 +9,15 @@
 import UIKit
 
 var afterCells = [[CellState]]()
-var grid = [[CellState]]()
+var sGrid = [[CellState]]()
 @IBDesignable
 class GridView: UIView {
-    @IBInspectable var rows: Int = 20 {
+    @IBInspectable var rows: Int = 10 {
         didSet{
             setNeedsDisplay()
         }
     }
-    @IBInspectable var cols: Int = 20{
+    @IBInspectable var cols: Int = 10{
         didSet{
             setNeedsDisplay()
         }
@@ -51,12 +51,11 @@ class GridView: UIView {
                 subArray.append(cell)
                 
             }
-            grid.append(subArray)
+            sGrid.append(subArray)
             afterCells.append(subArray)
         }
     }
     override func drawRect(rect: CGRect) {
-        let gridInstance = Grid(rows: rows, cols: cols)
         maxCol = cols - 1
         maxRows = rows - 1
         let gridPath = UIBezierPath()
@@ -83,8 +82,8 @@ class GridView: UIView {
                 //Draws circle
                 let center = findCenter(y, col: x, theWidth: width, theHeight: height)
                 //print(center)
-                let radius = (width / 2) - 0.1
-                let arcWidth: CGFloat = 0.2
+                let radius = (width / 2) - 0.5
+                let arcWidth: CGFloat = 0.1
                 let startAngle: CGFloat = 0
                 let endAngle: CGFloat = 2 * CGFloat(M_PI)
                 let oval = UIBezierPath(arcCenter: center,
@@ -95,7 +94,7 @@ class GridView: UIView {
                 
                 oval.lineWidth = arcWidth
                 //Changing color for circle based on status
-                switch grid[y][x]{
+                switch sGrid[y][x]{
                     case .Living:
                         livingColor.setFill()
                         livingColor.setStroke()
@@ -125,7 +124,6 @@ class GridView: UIView {
     }
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         var rect = CGRect(x:0, y: 0, width: width, height: height)
-        let gridInstance = Grid(rows: rows, cols: cols)
         for touch in touches {
             //print("Hello")
             for y in 0..<rows {
@@ -133,7 +131,8 @@ class GridView: UIView {
                     // creates rect that moves to check which cell was touched
                     rect.origin = CGPoint(x: 0.0 + width * CGFloat(x), y: 0 + height * CGFloat(y))
                     if CGRectContainsPoint(rect, touch.locationInView(self)){
-                        grid[y][x] = CellState.toggle(grid[y][x])
+                        sGrid[y][x] = CellState.toggle(sGrid[y][x])
+                       // AppDelegate().engineSingleton.grid = grid
                         setNeedsDisplay()
                     }
                 }

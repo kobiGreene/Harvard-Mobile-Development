@@ -16,10 +16,10 @@ class StandardEngine: EngineProtocol {
     var rows: Int
     var cols: Int
     
-    private static var _sharedInstance = StandardEngine(rows: 10, cols: 10)
+    //private static var _sharedInstance = StandardEngine(rows: 10, cols: 10)
     static var sharedInstance: StandardEngine {
         get {
-            return _sharedInstance
+            return StandardEngine(rows: 10, cols: 10)
         }
     }
     
@@ -35,20 +35,19 @@ class StandardEngine: EngineProtocol {
         let maxCol = cols - 1
         let maxRows = rows - 1
         var surrondingCellAliveCounter = 0
-        let gridInstance = AppDelegate().engineSingleton?.grid
         for y in 0...maxRows {
             for x in 0...maxCol {
                 surrondingCellAliveCounter = 0
                 let neighborCells = Grid(rows: rows, cols: cols).neighbors((y, x))
                 for cell in neighborCells {
-                    if gridInstance![cell.0, cell.1] == CellState.Living || gridInstance![cell.0, cell.1] == CellState.Born {
+                    if sGrid[cell.0][cell.1] == CellState.Living || sGrid[cell.0][cell.1] == CellState.Born {
                         surrondingCellAliveCounter += 1
                     }
                 }
                 //print("\(y) \(x)")
                 //print(surrondingCellAliveCounter)
                 // switching on the value of the current cell
-                switch gridInstance![y,x] {
+                switch sGrid[y][x] {
                 // Checking for the rules for the game of life
                 case .Living:
                     if surrondingCellAliveCounter < 2 {

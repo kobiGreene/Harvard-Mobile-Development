@@ -137,6 +137,12 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="gridWidth">
                                         <real key="value" value="2"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="rows">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cols">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j0F-ee-c1z">
@@ -287,6 +293,12 @@
                         </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Statistics" image="Third" id="sEi-3l-rRn"/>
+                    <connections>
+                        <outlet property="aliveLabel" destination="tfy-S7-JRF" id="szU-LQ-SSg"/>
+                        <outlet property="bornLabel" destination="sAb-iH-6G5" id="9A7-1S-qLg"/>
+                        <outlet property="diedLabel" destination="9oT-Oc-XCt" id="a2U-Pg-f6F"/>
+                        <outlet property="emptyLabel" destination="b7l-yd-iSg" id="4OS-5M-S0y"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A74-nV-wWu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
