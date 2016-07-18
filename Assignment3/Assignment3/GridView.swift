@@ -58,7 +58,6 @@ class GridView: UIView {
     override func drawRect(rect: CGRect) {
         maxCol = cols - 1
         maxRows = rows - 1
-        _ = UIBezierPath(ovalInRect: rect)
         let gridPath = UIBezierPath()
         gridPath.lineWidth = gridWidth
         lineRows = rows + 1
@@ -84,7 +83,7 @@ class GridView: UIView {
                 let center = findCenter(y, col: x, theWidth: width, theHeight: height)
                 //print(center)
                 let radius = width / 2
-                let arcWidth: CGFloat = 2
+                let arcWidth: CGFloat = 0.2
                 let startAngle: CGFloat = 0
                 let endAngle: CGFloat = 2 * CGFloat(M_PI)
                 let oval = UIBezierPath(arcCenter: center,
@@ -95,22 +94,19 @@ class GridView: UIView {
                 
                 oval.lineWidth = arcWidth
                 //Changing color for circle based on status
-                switch grid[y][x].description(){
-                    case "Living":
+                switch grid[y][x]{
+                    case .Living:
                         livingColor.setFill()
                         livingColor.setStroke()
-                    case "Empty":
+                    case .Empty:
                         emptyColor.setFill()
                         emptyColor.setStroke()
-                    case "Born":
+                    case .Born:
                         bornColor.setFill()
                         bornColor.setStroke()
-                    case "Died":
+                    case .Died:
                         diedColor.setFill()
                         diedColor.setStroke()
-                default:
-                    emptyColor.setFill()
-                    emptyColor.setStroke()
                 }
                 oval.fill()
                 oval.stroke()
