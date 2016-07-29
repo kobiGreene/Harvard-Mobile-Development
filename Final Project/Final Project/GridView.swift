@@ -59,8 +59,8 @@ class GridView: UIView {
             print(ceil(rect.origin.x))
             print(rect.size.height)
             print(rect.size.width)
-            var newRow = Int((ceil(rect.origin.y) + rect.size.height) / rect.size.height)
-            var newCol = Int((ceil(rect.origin.x) + rect.size.width) / rect.size.width)
+            var newRow = Int(ceil(rect.origin.y) / rect.size.height)
+            var newCol = Int(ceil(rect.origin.x) / rect.size.width)
             print(newRow)
             print(newCol)
             //Changing color for circle based on status
