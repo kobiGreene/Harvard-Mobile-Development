@@ -41,19 +41,30 @@ class GridView: UIView {
         super.drawRect(rect)
     
         if rect.size.width <= self.frame.width / 2 {
-            var newRow = Int(ceil(rect.origin.y + rect.size.height / 2) / rect.size.height)
-            var newCol = Int(ceil(rect.origin.x + rect.size.width / 2) / rect.size.width)
+            let newRow = Int(ceil(rect.origin.y + rect.size.height / 2) / rect.size.height)
+            let newCol = Int(ceil(rect.origin.x + rect.size.width / 2) / rect.size.width)
             let center = findCenter(newRow, col: newCol, theWidth: width, theHeight: height)
             let radius = (width / 2) - 0.5
             let arcWidth: CGFloat = 0.1
             let startAngle: CGFloat = 0
             let endAngle: CGFloat = 2 * CGFloat(M_PI)
+            let gridPath = UIBezierPath()
+            gridPath.lineWidth = gridWidth
+            gridPath.moveToPoint(CGPoint(x: rect.origin.x, y: rect.origin.y))
+            gridPath.addLineToPoint(CGPoint(x: rect.origin.x + width , y: rect.origin.y + height ))
+            gridColor.setStroke()
+            gridPath.stroke()
+            gridPath.moveToPoint(CGPoint(x: rect.origin.x + width, y: rect.origin.y))
+            gridPath.addLineToPoint(CGPoint(x: rect.origin.x + width , y: rect.origin.y + height))
+            gridColor.setStroke()
+            gridPath.stroke()
             let oval = UIBezierPath(arcCenter: center,
                                     radius: radius,
                                     startAngle: startAngle,
                                     endAngle: endAngle,
                                     clockwise: true)
             //Changing color for circle based on status
+            oval.lineWidth = arcWidth
             switch engine.grid.cells[newRow*cols+newCol].state{
             case .Alive:
                 livingColor.setFill()
