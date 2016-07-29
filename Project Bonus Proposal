@@ -1,3 +1,1 @@
-I will do mutations, Hadling multiple touches to toggle cells(dragging finger to turn on/off cells), 
-and I will allow user to swipe across to see different screens that contain
-different simulations of the game of life(based on different starting points).
+I will do mutations and saving the different configurations to acess after app has been closed.
