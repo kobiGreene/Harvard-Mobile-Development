@@ -39,6 +39,7 @@ class GridView: UIView {
     var engine = StandardEngine.sharedEngine
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
+    
         if rect.size.width <= self.frame.width / 2 {
             let center = findCenter(Int(rect.origin.y), col: Int(rect.origin.x), theWidth: width, theHeight: height)
             print(center)
@@ -53,8 +54,8 @@ class GridView: UIView {
                                     clockwise: true)
             
             oval.lineWidth = arcWidth
-            var newRow = Int(rect.origin.y / rect.size.height)
-            var newCol = Int(rect.origin.x / rect.size.width)
+            var newRow = Int(ceil(rect.origin.y) / rect.size.height)
+            var newCol = Int(ceil(rect.origin.x) / rect.size.width)
             print(newRow)
             print(newCol)
             //Changing color for circle based on status
