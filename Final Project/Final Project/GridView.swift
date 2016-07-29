@@ -41,7 +41,9 @@ class GridView: UIView {
         super.drawRect(rect)
     
         if rect.size.width <= self.frame.width / 2 {
-            let center = findCenter(Int(rect.origin.y), col: Int(rect.origin.x), theWidth: width, theHeight: height)
+            var newRow = Int(ceil(rect.origin.y + rect.size.height / 2) / rect.size.height)
+            var newCol = Int(ceil(rect.origin.x + rect.size.width / 2) / rect.size.width)
+            let center = findCenter(newRow, col: newCol, theWidth: width, theHeight: height)
             let radius = (width / 2) - 0.5
             let arcWidth: CGFloat = 0.1
             let startAngle: CGFloat = 0
@@ -51,18 +53,6 @@ class GridView: UIView {
                                     startAngle: startAngle,
                                     endAngle: endAngle,
                                     clockwise: true)
-            
-            oval.lineWidth = arcWidth
-            print(rect.origin.y)
-            print(ceil(rect.origin.y))
-            print(rect.origin.x)
-            print(ceil(rect.origin.x))
-            print(rect.size.height)
-            print(rect.size.width)
-            var newRow = Int(ceil(rect.origin.y + rect.size.height / 2) / rect.size.height)
-            var newCol = Int(ceil(rect.origin.x + rect.size.width / 2) / rect.size.width)
-            print(newRow)
-            print(newCol)
             //Changing color for circle based on status
             switch engine.grid.cells[newRow*cols+newCol].state{
             case .Alive:
