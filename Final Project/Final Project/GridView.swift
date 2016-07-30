@@ -12,17 +12,16 @@ import UIKit
 
 class GridView: UIView {
     
-    @IBInspectable var rows: Int = 20{
+    @IBInspectable var rows: Int = 55{
         didSet{
             //resetgrid
             StandardEngine.sharedEngine.rows = rows
             self.setNeedsDisplay()
         }
     }
-    @IBInspectable var cols: Int = 20{
+    @IBInspectable var cols: Int = 55{
         didSet{
             //reset grid
-            print(StandardEngine.sharedEngine.cols)
             StandardEngine.sharedEngine.cols = cols
             self.setNeedsDisplay()
         }

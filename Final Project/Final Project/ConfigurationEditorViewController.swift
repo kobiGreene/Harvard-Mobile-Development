@@ -11,7 +11,7 @@ import UIKit
 class ConfigurationEditorViewController: UIViewController, EngineDelegate {
     @IBOutlet weak var gridView: GridView!
     
-    var newPoints: [(Int,Int)]!
+    var newPoints: [(Int,Int)]?
     override func viewDidLoad() {
         super.viewDidLoad()
         StandardEngine.sharedEngine.delegate = self

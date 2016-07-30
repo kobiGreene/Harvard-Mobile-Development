@@ -43,19 +43,22 @@ class ConfigurationViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell")
         cell?.textLabel?.text = configurations[indexPath.row].title
-        
+        cell?.tag = indexPath.row
         return cell!
     }
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let newV = self.storyboard?.instantiateViewControllerWithIdentifier("Edit") as! ConfigurationEditorViewController
-        self.navigationController?.pushViewController(newV, animated: true)
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let backItem = UIBarButtonItem()
         backItem.title = "Cancel"
-        navigationItem.backBarButtonItem = backItem
-        StandardEngine.sharedEngine.rows = 55
-        StandardEngine.sharedEngine.cols = 55
-        newV.title =  configurations[indexPath.row].title
-        newV.newPoints = configurations[indexPath.row].points
+        self.navigationItem.backBarButtonItem = backItem
+        let editingRow = (sender as! UITableViewCell).tag
+        let editingString = configurations[editingRow].title
+        let editingPoints = configurations[editingRow].points
+        guard let editingVC = segue.destinationViewController as? ConfigurationEditorViewController
+            else {
+                preconditionFailure("Bad")
+        }
+        editingVC.title = editingString
+        editingVC.newPoints = editingPoints
     }
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
