@@ -8,12 +8,22 @@
 
 import UIKit
 
-class ConfigurationEditorViewController: UIViewController {
-
+class ConfigurationEditorViewController: UIViewController, EngineDelegate {
+    @IBOutlet weak var gridView: GridView!
+    
+    var newPoints: [(Int,Int)]!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        StandardEngine.sharedEngine.delegate = self
+        print(newPoints)
+        GridView().points = newPoints
+        gridView.setNeedsDisplay()
+        print(StandardEngine.sharedEngine.rows)
         // Do any additional setup after loading the view.
+    }
+    func engineDidUpdate(withGrid: GridProtocol) {
+        print("called")
+        gridView.setNeedsDisplay()
     }
 
     override func didReceiveMemoryWarning() {

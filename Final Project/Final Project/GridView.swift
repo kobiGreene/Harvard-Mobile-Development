@@ -11,15 +11,21 @@ import UIKit
 @IBDesignable
 
 class GridView: UIView {
-    var points = [(Int, Int)]()
-    @IBInspectable var rows: Int = 20 {
+    
+    @IBInspectable var rows: Int = 20{
         didSet{
             //resetgrid
+            StandardEngine.sharedEngine.rows = rows
+            print(rows)
+            //self.setNeedsDisplay()
         }
     }
     @IBInspectable var cols: Int = 20{
         didSet{
             //reset grid
+            StandardEngine.sharedEngine.cols = cols
+            print(cols)
+            //self.setNeedsDisplay()
         }
         
     }
@@ -30,6 +36,33 @@ class GridView: UIView {
     @IBInspectable var gridColor: UIColor = UIColor.blackColor()
     @IBInspectable var gridWidth: CGFloat = 30.0
     
+    var points: Array<(Int,Int)> {
+        get {
+            var array = [(Int,Int)]()
+            for y in 0..<rows {
+                for x in 0..<cols {
+                    if StandardEngine.sharedEngine[y,x].isLiving() {
+                        array.append((y,x))
+                    }
+                }
+            }
+            return array
+        }
+        set {
+            for y in 0..<rows {
+                for x in 0..<cols {
+                    for point in points {
+                        if y == point.0 && x == point.1{
+                            StandardEngine.sharedEngine.grid[point.0, point.1] = CellState.Alive
+                        }else {
+                            StandardEngine.sharedEngine.grid[y,x] = CellState.Empty
+                        }
+                }
+            }
+        }
+        }
+    }
+    
     var lineRows: Int!
     var lineCols: Int!
     var width: CGFloat!
@@ -39,10 +72,9 @@ class GridView: UIView {
     var engine = StandardEngine.sharedEngine
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
-    
         if rect.size.width <= self.frame.width / 2 {
-            let newRow = Int(ceil(rect.origin.y + rect.size.height / 2) / rect.size.height)
-            let newCol = Int(ceil(rect.origin.x + rect.size.width / 2) / rect.size.width)
+            let newRow = Int(ceil(rect.origin.y / height))
+            let newCol = Int(ceil(rect.origin.x / width))
             let center = findCenter(newRow, col: newCol, theWidth: width, theHeight: height)
             let radius = (width / 2) - 0.5
             let arcWidth: CGFloat = 0.1
@@ -58,6 +90,12 @@ class GridView: UIView {
             gridPath.addLineToPoint(CGPoint(x: rect.origin.x + width , y: rect.origin.y + height))
             gridColor.setStroke()
             gridPath.stroke()
+            print(rect.origin.y)
+            print(rect.origin.x)
+            print(newRow)
+            print(newCol)
+            print(width)
+            print(height)
             let oval = UIBezierPath(arcCenter: center,
                                     radius: radius,
                                     startAngle: startAngle,
@@ -81,7 +119,6 @@ class GridView: UIView {
             }
             oval.fill()
             oval.stroke()
-            print(engine.grid.cells[Int(rect.origin.y / 100 )*cols+Int(rect.origin.x / 100)].state)
         }else {
         maxCol = cols - 1
         maxRows = rows - 1
@@ -120,6 +157,7 @@ class GridView: UIView {
                                         clockwise: true)
                 
                 oval.lineWidth = arcWidth
+                
                 //Changing color for circle based on status
                 switch engine.grid.cells[y*cols+x].state{
                 case .Alive:
@@ -159,7 +197,6 @@ class GridView: UIView {
                     // creates rect that moves to check which cell was touched
                     rect.origin = CGPoint(x: 0.0 + width * CGFloat(x), y: 0 + height * CGFloat(y))
                     if CGRectContainsPoint(rect, touch.locationInView(self)){
-                        print("hit")
                         if engine.grid[y,x].isLiving() {
                             engine.grid.cells[y*cols+x].state = CellState.Empty
                         }else {

@@ -38,36 +38,52 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Bj-RX-Vou" customClass="GridView" customModule="Final_Project" customModuleProvider="target">
-                                <rect key="frame" x="20" y="30" width="560" height="480"/>
+                                <rect key="frame" x="20" y="30" width="560" height="450"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="4Bj-RX-Vou" secondAttribute="height" multiplier="224:209" id="RN4-gc-yON"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="rows">
-                                        <integer key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cols">
-                                        <integer key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="RN4-gc-yON"/>
                                     </mask>
                                 </variation>
                             </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="V7h-qX-V6K">
+                                <rect key="frame" x="249" y="513" width="103" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4l1-bx-oxm">
+                                        <rect key="frame" x="0.0" y="0.0" width="34" height="30"/>
+                                        <state key="normal" title="Save"/>
+                                        <connections>
+                                            <action selector="saveGrid:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="0H2-ub-fZk"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J5c-RZ-m2U">
+                                        <rect key="frame" x="64" y="0.0" width="39" height="30"/>
+                                        <state key="normal" title="Reset"/>
+                                        <connections>
+                                            <action selector="resetGrid:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="NZm-sg-rnn"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="4Bj-RX-Vou" firstAttribute="trailing" secondItem="QS5-Rx-YEW" secondAttribute="trailingMargin" id="2cO-f7-X4K"/>
                             <constraint firstItem="4Bj-RX-Vou" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="7vM-jQ-OdO"/>
+                            <constraint firstItem="V7h-qX-V6K" firstAttribute="top" secondItem="4Bj-RX-Vou" secondAttribute="bottom" constant="10" id="EUE-FO-8un"/>
                             <constraint firstItem="4Bj-RX-Vou" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="JDQ-bd-oyd"/>
                             <constraint firstItem="4Bj-RX-Vou" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="10" id="RLF-8a-QSf"/>
-                            <constraint firstItem="4Bj-RX-Vou" firstAttribute="height" secondItem="QS5-Rx-YEW" secondAttribute="height" multiplier="0.8" id="axV-bj-WvD"/>
+                            <constraint firstItem="4Bj-RX-Vou" firstAttribute="height" secondItem="QS5-Rx-YEW" secondAttribute="height" multiplier="0.75" id="axV-bj-WvD"/>
+                            <constraint firstItem="V7h-qX-V6K" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="xH6-vy-5lR"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Simulation" image="second" id="cPa-gy-q4n"/>
+                    <connections>
+                        <outlet property="gridView" destination="4Bj-RX-Vou" id="V4Q-Oi-t9X"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
@@ -229,9 +245,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="560" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="n4S-nb-Bcc" kind="show" id="CJg-tU-4cc"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -247,16 +260,37 @@
         <!--ConfigurationEditor-->
         <scene sceneID="cPm-tS-AT5">
             <objects>
-                <viewController id="n4S-nb-Bcc" userLabel="ConfigurationEditor" customClass="ConfigurationEditorViewController" customModule="Final_Project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Edit" id="n4S-nb-Bcc" userLabel="ConfigurationEditor" customClass="ConfigurationEditorViewController" customModule="Final_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZOt-fP-PEx"/>
                         <viewControllerLayoutGuide type="bottom" id="cdd-FN-x9p"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="jSo-Tg-fvB">
-                        <rect key="frame" x="0.0" y="0.0" width="560" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ICL-ow-7Zq" customClass="GridView" customModule="Final_Project" customModuleProvider="target">
+                                <rect key="frame" x="125" y="20" width="310" height="185"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ICL-ow-7Zq" firstAttribute="leading" secondItem="jSo-Tg-fvB" secondAttribute="leadingMargin" id="GMJ-ma-7Y0"/>
+                            <constraint firstItem="ICL-ow-7Zq" firstAttribute="top" secondItem="ZOt-fP-PEx" secondAttribute="bottom" id="HOK-Jy-ppJ"/>
+                            <constraint firstItem="ICL-ow-7Zq" firstAttribute="height" secondItem="jSo-Tg-fvB" secondAttribute="height" multiplier="0.75" id="feg-g3-QYm"/>
+                            <constraint firstItem="cdd-FN-x9p" firstAttribute="top" secondItem="ICL-ow-7Zq" secondAttribute="bottom" id="g2X-hU-wWt"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ICL-ow-7Zq" secondAttribute="trailing" id="pei-6r-TLi"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="g2X-hU-wWt"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="gridView" destination="ICL-ow-7Zq" id="FLm-R4-LVj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dul-Mx-pEF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
