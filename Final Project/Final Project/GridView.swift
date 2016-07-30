@@ -16,16 +16,15 @@ class GridView: UIView {
         didSet{
             //resetgrid
             StandardEngine.sharedEngine.rows = rows
-            print(rows)
-            //self.setNeedsDisplay()
+            self.setNeedsDisplay()
         }
     }
     @IBInspectable var cols: Int = 20{
         didSet{
             //reset grid
+            print(StandardEngine.sharedEngine.cols)
             StandardEngine.sharedEngine.cols = cols
-            print(cols)
-            //self.setNeedsDisplay()
+            self.setNeedsDisplay()
         }
         
     }
@@ -90,12 +89,6 @@ class GridView: UIView {
             gridPath.addLineToPoint(CGPoint(x: rect.origin.x + width , y: rect.origin.y + height))
             gridColor.setStroke()
             gridPath.stroke()
-            print(rect.origin.y)
-            print(rect.origin.x)
-            print(newRow)
-            print(newCol)
-            print(width)
-            print(height)
             let oval = UIBezierPath(arcCenter: center,
                                     radius: radius,
                                     startAngle: startAngle,

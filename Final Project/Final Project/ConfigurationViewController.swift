@@ -49,8 +49,11 @@ class ConfigurationViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let newV = self.storyboard?.instantiateViewControllerWithIdentifier("Edit") as! ConfigurationEditorViewController
         self.navigationController?.pushViewController(newV, animated: true)
-        GridView().rows = 55
-        GridView().cols = 55
+        let backItem = UIBarButtonItem()
+        backItem.title = "Cancel"
+        navigationItem.backBarButtonItem = backItem
+        StandardEngine.sharedEngine.rows = 55
+        StandardEngine.sharedEngine.cols = 55
         newV.title =  configurations[indexPath.row].title
         newV.newPoints = configurations[indexPath.row].points
     }

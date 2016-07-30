@@ -16,8 +16,8 @@ class ConfigurationEditorViewController: UIViewController, EngineDelegate {
         super.viewDidLoad()
         StandardEngine.sharedEngine.delegate = self
         print(newPoints)
-        GridView().points = newPoints
-        gridView.setNeedsDisplay()
+        //GridView().points = newPoints
+        //gridView.setNeedsDisplay()
         print(StandardEngine.sharedEngine.rows)
         // Do any additional setup after loading the view.
     }
