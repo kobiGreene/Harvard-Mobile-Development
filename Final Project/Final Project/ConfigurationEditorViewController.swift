@@ -8,22 +8,23 @@ class ConfigurationEditorViewController: UIViewController {
     var newPoints: [(Int,Int)]?
     override func viewDidLoad() {
         super.viewDidLoad()
-        var highestPointsRow = [Int]()
-        var highestPointsCol = [Int]()
+        var highestPointRow = 0
+        var highestPointCol = 0
         if let points = newPoints {
-            highestPointsRow = points.map({$0.0}).sort({$0 > $1})
-            highestPointsCol = points.map({$0.1}).filter{$0 > 10}
+            var highestPointsRow = points.map({$0.0}).sort({$0 > $1})
+            var highestPointsCol = points.map({$0.1}).sort({$0 > $1})
+            highestPointRow = highestPointsRow[0]
+            highestPointCol = highestPointsCol[0]
+            
         }
-        print("Highest")
-        print(highestPointsRow)
-        print(highestPointsCol)
-        gridView.rows = 55
-        gridView.cols = 55
-        StandardEngine.sharedEngine.rows = 55
-        StandardEngine.sharedEngine.cols = 55
+        print(highestPointRow)
+        print(highestPointCol)
+        StandardEngine.sharedEngine.rows = highestPointRow
+        StandardEngine.sharedEngine.cols = highestPointCol
+        gridView.rows = highestPointRow
+        gridView.cols = highestPointCol
         //GridView().points = newPoints
         //gridView.setNeedsDisplay()
-        print(StandardEngine.sharedEngine.rows)
         // Do any additional setup after loading the view.
         for y in 0..<StandardEngine.sharedEngine.rows {
             for x in 0..<StandardEngine.sharedEngine.cols {
