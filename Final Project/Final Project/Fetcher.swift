@@ -1,10 +1,3 @@
-//
-//  Fetcher.swift
-//  Lecture10InClass
-//
-//  Created by Van Simmons on 7/25/16.
-//  Copyright © 2016 S65g. All rights reserved.
-//
 
 import Foundation
 

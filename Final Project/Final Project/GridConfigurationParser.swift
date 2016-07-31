@@ -1,10 +1,4 @@
-//
-//  GridConfigurationParser.swift
-//  LastSection
-//
-//  Created by Kobi Greene on 7/28/16.
-//  Copyright © 2016 Kobi Greene. All rights reserved.
-//
+
 
 import Foundation
 

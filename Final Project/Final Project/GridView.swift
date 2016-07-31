@@ -1,31 +1,29 @@
-//
-//  GridView.swift
-//  ProjectPrototype
-//
-//  Created by Van Simmons on 7/23/16.
-//  Copyright © 2016 S65g. All rights reserved.
-//
+
 
 import UIKit
 
 @IBDesignable
 
 class GridView: UIView {
-    
-    @IBInspectable var rows: Int = 55{
+    @IBInspectable var rows: Int = 20{
         didSet{
             //resetgrid
-            StandardEngine.sharedEngine.rows = rows
-            self.setNeedsDisplay()
+            print(rows)
+            mainRows = rows
+            setNeedsDisplay()
         }
     }
-    @IBInspectable var cols: Int = 55{
+    @IBInspectable var cols: Int = 20{
         didSet{
             //reset grid
-            StandardEngine.sharedEngine.cols = cols
-            self.setNeedsDisplay()
+            print(cols)
+            mainCols = cols
+            setNeedsDisplay()
         }
         
+    }
+    override func didMoveToWindow() {
+        //
     }
     @IBInspectable var livingColor: UIColor = UIColor.greenColor()
     @IBInspectable var emptyColor: UIColor = UIColor.grayColor()
@@ -33,12 +31,13 @@ class GridView: UIView {
     @IBInspectable var diedColor: UIColor = UIColor.redColor()
     @IBInspectable var gridColor: UIColor = UIColor.blackColor()
     @IBInspectable var gridWidth: CGFloat = 30.0
-    
+    var mainRows = 20
+    var mainCols = 20
     var points: Array<(Int,Int)> {
         get {
             var array = [(Int,Int)]()
-            for y in 0..<rows {
-                for x in 0..<cols {
+            for y in 0..<mainRows {
+                for x in 0..<mainCols {
                     if StandardEngine.sharedEngine[y,x].isLiving() {
                         array.append((y,x))
                     }
@@ -47,8 +46,9 @@ class GridView: UIView {
             return array
         }
         set {
-            for y in 0..<rows {
-                for x in 0..<cols {
+            print("hit")
+            for y in 0..<mainRows {
+                for x in 0..<mainCols {
                     for point in points {
                         if y == point.0 && x == point.1{
                             StandardEngine.sharedEngine.grid[point.0, point.1] = CellState.Alive
@@ -57,7 +57,8 @@ class GridView: UIView {
                         }
                 }
             }
-        }
+            }
+           
         }
     }
     
@@ -95,7 +96,7 @@ class GridView: UIView {
                                     clockwise: true)
             //Changing color for circle based on status
             oval.lineWidth = arcWidth
-            switch engine.grid.cells[newRow*cols+newCol].state{
+            switch engine.grid[newRow,newCol]{
             case .Alive:
                 livingColor.setFill()
                 livingColor.setStroke()
@@ -112,65 +113,66 @@ class GridView: UIView {
             oval.fill()
             oval.stroke()
         }else {
-        maxCol = cols - 1
-        maxRows = rows - 1
-        let gridPath = UIBezierPath()
-        gridPath.lineWidth = gridWidth
-        lineRows = rows + 1
-        lineCols = cols + 1
-        width = rect.width / CGFloat(cols)
-        height = rect.height / CGFloat(rows)
-        //Drawing the grid
-        for i in 0..<lineRows{
-            gridPath.moveToPoint(CGPoint(x: bounds.origin.x, y: bounds.origin.y + height * CGFloat(i)))
-            gridPath.addLineToPoint(CGPoint(x: bounds.origin.x + width * CGFloat(cols) , y: bounds.origin.y + height * CGFloat(i)))
-            gridColor.setStroke()
-            gridPath.stroke()
-        }
-        for i in 0..<lineCols {
-            gridPath.moveToPoint(CGPoint(x: bounds.origin.x + width * CGFloat(i), y: bounds.origin.y))
-            gridPath.addLineToPoint(CGPoint(x: bounds.origin.x + width * CGFloat(i) , y: bounds.origin.y + height * CGFloat(cols)))
-            gridColor.setStroke()
-            gridPath.stroke()
-        }
-        for y in 0..<rows{
-            for x in 0..<cols {
-                //Draws circle
-                let center = findCenter(y, col: x, theWidth: width, theHeight: height)
-                //print(center)
-                let radius = (width / 2) - 0.5
-                let arcWidth: CGFloat = 0.1
-                let startAngle: CGFloat = 0
-                let endAngle: CGFloat = 2 * CGFloat(M_PI)
-                let oval = UIBezierPath(arcCenter: center,
-                                        radius: radius,
-                                        startAngle: startAngle,
-                                        endAngle: endAngle,
-                                        clockwise: true)
-                
-                oval.lineWidth = arcWidth
-                
-                //Changing color for circle based on status
-                switch engine.grid.cells[y*cols+x].state{
-                case .Alive:
-                    livingColor.setFill()
-                    livingColor.setStroke()
-                case .Empty:
-                    emptyColor.setFill()
-                    emptyColor.setStroke()
-                case .Born:
-                    bornColor.setFill()
-                    bornColor.setStroke()
-                case .Died:
-                    diedColor.setFill()
-                    diedColor.setStroke()
-                }
-                oval.fill()
-                oval.stroke()
+            print(rows)
+            maxCol = mainCols - 1
+            maxRows = mainRows - 1
+            let gridPath = UIBezierPath()
+            gridPath.lineWidth = gridWidth
+            lineRows = rows + 1
+            lineCols = cols + 1
+            width = rect.width / CGFloat(mainCols)
+            height = rect.height / CGFloat(mainRows)
+            //Drawing the grid
+            for i in 0..<lineRows{
+                gridPath.moveToPoint(CGPoint(x: bounds.origin.x, y: bounds.origin.y + height * CGFloat(i)))
+                gridPath.addLineToPoint(CGPoint(x: bounds.origin.x + width * CGFloat(cols) , y: bounds.origin.y + height * CGFloat(i)))
+                gridColor.setStroke()
+                gridPath.stroke()
             }
-        }
+            for i in 0..<lineCols {
+                gridPath.moveToPoint(CGPoint(x: bounds.origin.x + width * CGFloat(i), y: bounds.origin.y))
+                gridPath.addLineToPoint(CGPoint(x: bounds.origin.x + width * CGFloat(i) , y: bounds.origin.y + height * CGFloat(cols)))
+                gridColor.setStroke()
+                gridPath.stroke()
+            }
+            for y in 0..<mainRows{
+                for x in 0..<mainCols {
+                    //Draws circle
+                    let center = findCenter(y, col: x, theWidth: width, theHeight: height)
+                    //print(center)
+                    let radius = (width / 2) - 0.5
+                    let arcWidth: CGFloat = 0.1
+                    let startAngle: CGFloat = 0
+                    let endAngle: CGFloat = 2 * CGFloat(M_PI)
+                    let oval = UIBezierPath(arcCenter: center,
+                                            radius: radius,
+                                            startAngle: startAngle,
+                                            endAngle: endAngle,
+                                            clockwise: true)
+                
+                    oval.lineWidth = arcWidth
+                
+                    //Changing color for circle based on status
+                    switch engine.grid[y,x]{
+                    case .Alive:
+                        livingColor.setFill()
+                        livingColor.setStroke()
+                    case .Empty:
+                        emptyColor.setFill()
+                        emptyColor.setStroke()
+                    case .Born:
+                        bornColor.setFill()
+                        bornColor.setStroke()
+                    case .Died:
+                        diedColor.setFill()
+                        diedColor.setStroke()
+                    }
+                    oval.fill()
+                    oval.stroke()
+                }
+            }
         
-    }
+        }
     }
     //finding the center of each cell to draw the circele
     func findCenter(row: Int, col: Int, theWidth: CGFloat, theHeight: CGFloat) -> CGPoint{
@@ -184,15 +186,15 @@ class GridView: UIView {
         var rect = CGRect(x:0, y: 0, width: width, height: height)
         for touch in touches {
             //print("Hello")
-            for y in 0..<rows {
-                for x in 0..<cols {
+            for y in 0..<mainRows {
+                for x in 0..<mainCols {
                     // creates rect that moves to check which cell was touched
                     rect.origin = CGPoint(x: 0.0 + width * CGFloat(x), y: 0 + height * CGFloat(y))
                     if CGRectContainsPoint(rect, touch.locationInView(self)){
                         if engine.grid[y,x].isLiving() {
-                            engine.grid.cells[y*cols+x].state = CellState.Empty
+                            engine.grid[y,x] = CellState.Empty
                         }else {
-                            engine.grid.cells[y*cols+x].state = CellState.Alive
+                            engine.grid[y,x] = CellState.Alive
                         }
                         
                         setNeedsDisplayInRect(rect)
@@ -205,3 +207,16 @@ class GridView: UIView {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -20,8 +20,8 @@ class SimulationViewController: UIViewController {
     }
     
     @IBAction func resetGrid(sender: AnyObject) {
-        for y in 0..<engine.rows {
-            for x in 0..<engine.cols {
+        for y in 0..<engine.grid.rows {
+            for x in 0..<engine.grid.cols {
                 engine.grid[y,x] = CellState.Empty
             }
         }

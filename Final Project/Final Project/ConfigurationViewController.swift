@@ -1,13 +1,8 @@
-//
-//  ConfigurationViewController.swift
-//  ProjectPrototype
-//
-//  Created by Van Simmons on 7/23/16.
-//  Copyright © 2016 S65g. All rights reserved.
-//
+
 
 import UIKit
 
+var url: NSURL?
 class ConfigurationViewController: UITableViewController {
     var configurations: [GridConfiguration] = []
     
@@ -23,9 +18,13 @@ class ConfigurationViewController: UITableViewController {
     }
     
     func fetch() {
-        let url = NSURL(string: "https://dl.dropboxusercontent.com/u/7544475/S65g.json")!
+        print("fetch called")
+        print(url)
+        if url == nil {
+            url = NSURL(string: "https://dl.dropboxusercontent.com/u/7544475/S65g.json")!
+        }
         let fetcher = Fetcher()
-        fetcher.requestJSON(url) { (json, message) in
+        fetcher.requestJSON(url!) { (json, message) in
             if let json = json {
                 let correctType = json as! [AnyObject]
                 let parser = GridConfigurationParser(configurations: correctType)
@@ -57,8 +56,12 @@ class ConfigurationViewController: UITableViewController {
             else {
                 preconditionFailure("Bad")
         }
+      
         editingVC.title = editingString
+        
+        GridView().points = editingPoints
         editingVC.newPoints = editingPoints
+        
     }
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1

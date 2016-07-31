@@ -6,6 +6,7 @@ class InstrumentationViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var numberOfCols: UILabel!
     @IBOutlet weak var colsText: UITextField!
     @IBOutlet weak var rowsText: UITextField!
+    @IBOutlet weak var linkText: UITextField!
 
     
     
@@ -30,6 +31,15 @@ class InstrumentationViewController: UIViewController,UITextFieldDelegate {
             numberOfCols.text = textField.text! + " " + "Cols"
         }
     }
+
+    @IBAction func resetTableView(sender: AnyObject) {
+        if let linkText = linkText.text {
+            print("here")
+            url = NSURL(string: linkText)
+        }
+        ConfigurationViewController().tableView.reloadData()
+    }
+    
 
 }
 
