@@ -58,8 +58,6 @@ class ConfigurationViewController: UITableViewController {
         }
       
         editingVC.title = editingString
-        
-        GridView().points = editingPoints
         editingVC.newPoints = editingPoints
         
     }

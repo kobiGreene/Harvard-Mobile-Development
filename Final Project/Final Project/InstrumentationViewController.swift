@@ -22,19 +22,15 @@ class InstrumentationViewController: UIViewController,UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     func textFieldDidEndEditing(textField: UITextField) {
-        print("hello")
         if textField.tag == 1 {
-            print("here1")
             numberOfRows.text = textField.text! + " " + "Rows"
         }else {
-            print("here2")
             numberOfCols.text = textField.text! + " " + "Cols"
         }
     }
 
     @IBAction func resetTableView(sender: AnyObject) {
         if let linkText = linkText.text {
-            print("here")
             url = NSURL(string: linkText)
         }
         ConfigurationViewController().tableView.reloadData()

@@ -8,15 +8,12 @@ class GridView: UIView {
     @IBInspectable var rows: Int = 20{
         didSet{
             //resetgrid
-            print(rows)
             mainRows = rows
             setNeedsDisplay()
         }
     }
     @IBInspectable var cols: Int = 20{
         didSet{
-            //reset grid
-            print(cols)
             mainCols = cols
             setNeedsDisplay()
         }
@@ -47,6 +44,7 @@ class GridView: UIView {
         }
         set {
             print("hit")
+            self.points = newValue
             for y in 0..<mainRows {
                 for x in 0..<mainCols {
                     for point in points {
@@ -58,7 +56,7 @@ class GridView: UIView {
                 }
             }
             }
-           
+           print("done")
         }
     }
     
@@ -82,9 +80,13 @@ class GridView: UIView {
             let gridPath = UIBezierPath()
             gridPath.lineWidth = gridWidth
             gridPath.moveToPoint(CGPoint(x: rect.origin.x, y: rect.origin.y))
-            gridPath.addLineToPoint(CGPoint(x: rect.origin.x + width , y: rect.origin.y + height ))
+            gridPath.addLineToPoint(CGPoint(x: rect.origin.x + width, y: rect.origin.y + height ))
+            gridPath.moveToPoint(CGPoint(x: rect.origin.x, y: rect.origin.y + height))
+            gridPath.addLineToPoint(CGPoint(x: rect.origin.x + width, y: rect.origin.y + height ))
             gridColor.setStroke()
             gridPath.stroke()
+            gridPath.moveToPoint(CGPoint(x: rect.origin.x, y: rect.origin.y))
+            gridPath.addLineToPoint(CGPoint(x: rect.origin.x , y: rect.origin.y + height))
             gridPath.moveToPoint(CGPoint(x: rect.origin.x + width, y: rect.origin.y))
             gridPath.addLineToPoint(CGPoint(x: rect.origin.x + width , y: rect.origin.y + height))
             gridColor.setStroke()
@@ -113,7 +115,6 @@ class GridView: UIView {
             oval.fill()
             oval.stroke()
         }else {
-            print(rows)
             maxCol = mainCols - 1
             maxRows = mainRows - 1
             let gridPath = UIBezierPath()

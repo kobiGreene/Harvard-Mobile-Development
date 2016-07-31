@@ -16,14 +16,14 @@ class ConfigurationEditorViewController: UIViewController {
             highestPointRow = highestPointsRow[0]
             highestPointCol = highestPointsCol[0]
             
-        }
+        }  
         print(highestPointRow)
         print(highestPointCol)
         StandardEngine.sharedEngine.rows = highestPointRow
         StandardEngine.sharedEngine.cols = highestPointCol
         gridView.rows = highestPointRow
         gridView.cols = highestPointCol
-        //GridView().points = newPoints
+        //GridView().points = newPoints!
         //gridView.setNeedsDisplay()
         // Do any additional setup after loading the view.
         for y in 0..<StandardEngine.sharedEngine.rows {

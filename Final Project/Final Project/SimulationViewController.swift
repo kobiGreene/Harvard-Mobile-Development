@@ -10,6 +10,10 @@ class SimulationViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
+    override func viewDidAppear(animated: Bool) {
+        gridView.rows = StandardEngine.sharedEngine.rows
+        gridView.cols = StandardEngine.sharedEngine.cols
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
