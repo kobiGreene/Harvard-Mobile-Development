@@ -46,9 +46,6 @@ class ConfigurationViewController: UITableViewController {
         return cell!
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let backItem = UIBarButtonItem()
-        backItem.title = "Cancel"
-        self.navigationItem.backBarButtonItem = backItem
         let editingRow = (sender as! UITableViewCell).tag
         let editingString = configurations[editingRow].title
         let editingPoints = configurations[editingRow].points

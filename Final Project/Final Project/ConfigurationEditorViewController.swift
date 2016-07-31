@@ -19,25 +19,15 @@ class ConfigurationEditorViewController: UIViewController {
         }  
         print(highestPointRow)
         print(highestPointCol)
-        StandardEngine.sharedEngine.rows = highestPointRow
-        StandardEngine.sharedEngine.cols = highestPointCol
-        gridView.rows = highestPointRow
-        gridView.cols = highestPointCol
-        //GridView().points = newPoints!
-        //gridView.setNeedsDisplay()
-        // Do any additional setup after loading the view.
-        for y in 0..<StandardEngine.sharedEngine.rows {
-            for x in 0..<StandardEngine.sharedEngine.cols {
-                for point in newPoints! {
-                    if y == point.0 && x == point.1{
-                        StandardEngine.sharedEngine.grid[point.0, point.1] = CellState.Alive
-                        print("here")
-                    }else {
-                        StandardEngine.sharedEngine.grid[y,x] = CellState.Empty
-                    }
-                }
-            }
-        }
+        var minRows = highestPointRow + 1
+        var minCols = highestPointCol + 1
+        StandardEngine.sharedEngine.rows = minRows
+        StandardEngine.sharedEngine.cols = minCols
+        gridView.rows = minRows
+        gridView.cols = minCols
+        GridView().points = newPoints!
+        print(gridView.points)
+
     }
 
     override func didReceiveMemoryWarning() {

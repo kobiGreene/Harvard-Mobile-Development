@@ -5,6 +5,8 @@ import UIKit
 @IBDesignable
 
 class GridView: UIView {
+    var mainRows = 20
+    var mainCols = 20
     @IBInspectable var rows: Int = 20{
         didSet{
             //resetgrid
@@ -21,6 +23,8 @@ class GridView: UIView {
     }
     override func didMoveToWindow() {
         //
+        mainRows = rows
+        mainCols = cols
     }
     @IBInspectable var livingColor: UIColor = UIColor.greenColor()
     @IBInspectable var emptyColor: UIColor = UIColor.grayColor()
@@ -28,28 +32,35 @@ class GridView: UIView {
     @IBInspectable var diedColor: UIColor = UIColor.redColor()
     @IBInspectable var gridColor: UIColor = UIColor.blackColor()
     @IBInspectable var gridWidth: CGFloat = 30.0
-    var mainRows = 20
-    var mainCols = 20
+    
     var points: Array<(Int,Int)> {
         get {
             var array = [(Int,Int)]()
-            for y in 0..<mainRows {
-                for x in 0..<mainCols {
-                    if StandardEngine.sharedEngine[y,x].isLiving() {
+            print(StandardEngine.sharedEngine.grid)
+            for y in 0..<StandardEngine.sharedEngine.rows {
+                for x in 0..<StandardEngine.sharedEngine.cols {
+                    if StandardEngine.sharedEngine.grid[y,x].isLiving() {
+                        
+                        print("down")
+                        print(y)
+                        print(x)
                         array.append((y,x))
+                        print(array)
                     }
                 }
             }
             return array
         }
         set {
-            print("hit")
-            self.points = newValue
-            for y in 0..<mainRows {
-                for x in 0..<mainCols {
-                    for point in points {
+            print(mainRows)
+            print(mainCols)
+            print(StandardEngine.sharedEngine.rows)
+            for y in 0..<StandardEngine.sharedEngine.rows {
+                for x in 0..<StandardEngine.sharedEngine.cols {
+                    for point in newValue {
                         if y == point.0 && x == point.1{
-                            StandardEngine.sharedEngine.grid[point.0, point.1] = CellState.Alive
+                            print(point)
+                            StandardEngine.sharedEngine.grid[y,x] = CellState.Alive
                         }else {
                             StandardEngine.sharedEngine.grid[y,x] = CellState.Empty
                         }
