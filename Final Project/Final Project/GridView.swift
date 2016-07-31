@@ -32,7 +32,6 @@ class GridView: UIView {
     @IBInspectable var diedColor: UIColor = UIColor.redColor()
     @IBInspectable var gridColor: UIColor = UIColor.blackColor()
     @IBInspectable var gridWidth: CGFloat = 30.0
-    
     var points: Array<(Int,Int)> {
         get {
             var array = [(Int,Int)]()

@@ -3,20 +3,30 @@
 import UIKit
 
 var url: NSURL?
+
 class ConfigurationViewController: UITableViewController {
+    
     var configurations: [GridConfiguration] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         fetch()
         // Do any additional setup after loading the view.
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.addObserver(self, selector: #selector(ConfigurationViewController.updateTableView), name: "NewRow", object: nil)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    func updateTableView(notification: NSNotification) {
+        var title = notification.userInfo!["Name"] as! String
+        configurations.append(GridConfiguration(title: title, points: nil))
+        let itemRow = configurations.count - 1
+        let itemPath = NSIndexPath(forRow:itemRow, inSection: 0)
+        tableView.insertRowsAtIndexPaths([itemPath], withRowAnimation: .Automatic)
+    }
     func fetch() {
         print("fetch called")
         print(url)
