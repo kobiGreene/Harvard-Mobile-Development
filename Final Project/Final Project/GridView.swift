@@ -7,28 +7,22 @@ import UIKit
 class GridView: UIView {
     var mainRows = 20
     var mainCols = 20
-    @IBInspectable var rows: Int = 20{
+    @IBInspectable var rows: Int = 0 {
         didSet{
             //resetgrid
+            print("This is it \(rows)")
             mainRows = rows
             setNeedsDisplay()
         }
     }
-    @IBInspectable var cols: Int = 20{
+    @IBInspectable var cols: Int = 0{
         didSet{
             mainCols = cols
             setNeedsDisplay()
         }
         
     }
-    var sGrid: GridProtocol!
-    override func didMoveToWindow() {
-        //print(neighbors((y: 8, x: 5)))
-        //Init the grid Cells to empty
-        mainRows = rows
-        mainCols = cols
 
-    }
     @IBInspectable var livingColor: UIColor = UIColor.greenColor()
     @IBInspectable var emptyColor: UIColor = UIColor.grayColor()
     @IBInspectable var bornColor: UIColor = UIColor.blueColor()
@@ -39,10 +33,10 @@ class GridView: UIView {
     var points: Array<(Int,Int)> {
         get {
             var array = [(Int,Int)]()
-            print(StandardEngine.sharedEngine.grid)
+            
             for y in 0..<mainRows {
                 for x in 0..<mainCols {
-                    if StandardEngine.sharedEngine.grid[y,x].isLiving() {
+                    if ConfigurationEditorViewController().isLiving(y,x: x) {
                         
                         print("down")
                         print(y)
@@ -57,14 +51,14 @@ class GridView: UIView {
         set {
             print(mainRows)
             print(mainCols)
+            print("Rows \(mainRows)")
             print(StandardEngine.sharedEngine.rows)
             for point in newValue {
-                for y in 0..<StandardEngine.sharedEngine.rows {
-                    for x in 0..<StandardEngine.sharedEngine.cols {
+                for y in 0..<mainRows {
+                    for x in 0..<mainCols {
                         if y == point.0 && x == point.1{
                             print(point)
-                            StandardEngine.sharedEngine.grid[y,x] = CellState.Alive
-                            print(StandardEngine.sharedEngine.grid[y,x])
+                            ConfigurationEditorViewController().switchToAlive(y, x: x)
                         }
                 }
             }
@@ -82,6 +76,7 @@ class GridView: UIView {
     var engine = StandardEngine.sharedEngine
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
+        print("Draw Rect rows \(mainRows)")
         if rect.size.width <= self.frame.width / 2 {
             let newRow = Int(ceil(rect.origin.y / height))
             let newCol = Int(ceil(rect.origin.x / width))

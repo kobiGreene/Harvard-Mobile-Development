@@ -7,15 +7,21 @@ class SimulationViewController: UIViewController {
     @IBOutlet weak var gridView: GridView!
     
     var engine = StandardEngine.sharedEngine
+    var timerOn = false
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.addObserver(self, selector: #selector(SimulationViewController.getTimer(_:)), name: "TimerOn", object: nil)
+        nc.addObserver(self, selector: #selector(SimulationViewController.stopTimer(_:)), name: "TimerOff", object: nil)
     }
     override func viewDidAppear(animated: Bool) {
         gridView.rows = StandardEngine.sharedEngine.rows
         gridView.cols = StandardEngine.sharedEngine.cols
-        let nc = NSNotificationCenter.defaultCenter()
-        nc.addObserver(self, selector: #selector(SimulationViewController.stepGrid(_:)), name: "Timer", object: nil)
+        if timerOn == true {
+            engine.refreshTimer = NSTimer(timeInterval: engine.refreshRate, target: self, selector: #selector(SimulationViewController.stepGrid), userInfo: nil, repeats: true)
+            //engine.refreshTimer?.fire()
+        }
         
     }
 
@@ -24,13 +30,24 @@ class SimulationViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     override func viewDidDisappear(animated: Bool) {
-        let nc = NSNotificationCenter.defaultCenter()
-        nc.removeObserver(self, name: "Timer", object: nil)
+        //let nc = NSNotificationCenter.defaultCenter()
+        //nc.removeObserver(self, name: "TimerOn", object: nil)
     }
-    func stepGrid(notification: NSNotification) {
+    func stopTimer(notification: NSNotification) {
+        engine.refreshTimer?.invalidate()
+    }
+    func getTimer(notification: NSNotification) {
+        engine.refreshTimer?.fire()
+        
+    }
+    func stepGrid() {
         print("recieved")
         engine.step()
         gridView.setNeedsDisplay()
+    }
+    func runTimer() {
+        print("run time")
+        
     }
 
     @IBAction func saveGrid(sender: AnyObject) {

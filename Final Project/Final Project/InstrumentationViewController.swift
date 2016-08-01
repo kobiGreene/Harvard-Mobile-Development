@@ -20,33 +20,33 @@ class InstrumentationViewController: UIViewController,UITextFieldDelegate {
         colsText.delegate = self
         rowsText.delegate = self
         mySwitch.addTarget(self, action: #selector(InstrumentationViewController.stateChanged(_:)), forControlEvents: UIControlEvents.ValueChanged)
-        engine.refreshRate = Double(slider.value)
 
     }
    
     @IBAction func sliderValue(sender: AnyObject) {
         engine.refreshRate = Double(slider.value)
-        if switchOn == true {
-            engine.refreshTimer = NSTimer(timeInterval: engine.refreshRate, target: self, selector: #selector(InstrumentationViewController.updateGrid), userInfo: nil, repeats: true)
-            engine.refreshTimer!.fire()
-        }
     }
     
     func stateChanged(switchState: UISwitch) {
-         engine.refreshTimer = NSTimer(timeInterval: engine.refreshRate, target: self, selector: #selector(InstrumentationViewController.updateGrid), userInfo: nil, repeats: true)
         if switchState.on {
-            engine.refreshTimer!.fire()
+            updateGrid()
             switchOn = true
         }else {
-           engine.refreshTimer!.invalidate()
             switchOn = false
+            stopTime()
         }
     }
     func updateGrid() {
-        let userInfo = ["Timer": "Fired"]
-        let notification = NSNotification(name: "Timer", object: self, userInfo: userInfo)
+        let userInfo = ["Timer": "On"]
+        let notification = NSNotification(name: "TimerOn", object: self, userInfo: userInfo)
         NSNotificationCenter.defaultCenter().postNotification(notification)
         print("hello")
+    }
+    func stopTime() {
+        let userInfo = ["Timer": "Off"]
+        let notification = NSNotification(name: "TimerOff", object: self, userInfo: userInfo)
+        NSNotificationCenter.defaultCenter().postNotification(notification)
+        print("stop")
     }
     @IBAction func addRow(sender: AnyObject) {
         let userInfo = ["Name": "New Configuration"]

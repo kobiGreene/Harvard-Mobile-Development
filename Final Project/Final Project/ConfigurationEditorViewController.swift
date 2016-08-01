@@ -7,29 +7,26 @@ class ConfigurationEditorViewController: UIViewController {
     
     var newPoints: [(Int,Int)]?
     var engine = StandardEngine.sharedEngine
+    var savePoints: (GridConfiguration -> Void)?
     override func viewDidLoad() {
         super.viewDidLoad()
-        var highestPointRow = 0
-        var highestPointCol = 0
         if newPoints != nil {
             if let points = newPoints {
-                var highestPointsRow = points.map({$0.0}).sort({$0 > $1})
-                var highestPointsCol = points.map({$0.1}).sort({$0 > $1})
-                highestPointRow = highestPointsRow[0]
-                highestPointCol = highestPointsCol[0]
+                let highestPointRow = points.map({$0.0}).reduce(0) {$0 > $1 ? $0 : $1}
+                let highestPointCol = points.map({$0.1}).reduce(0) {$0 > $1 ? $0 : $1}
                 print(highestPointRow)
                 print(highestPointCol)
-                var minRows = highestPointRow + 1
-                var minCols = highestPointCol + 1
+                let minRows = highestPointRow + 1
+                let minCols = highestPointCol + 1
                 //Checking to see if previous row range is too small or too big
-                if engine.rows < minRows || engine.rows > minRows + 1{
+                if engine.rows < minRows || engine.rows > minRows + 10 {
                     engine.rows = minRows
                     gridView.rows = minRows
                 }else {
                     engine.rows = engine.rows
                     gridView.rows = engine.rows
                 }
-                if engine.cols < minCols || engine.cols > minCols + 1{
+                if engine.cols < minCols || engine.cols > minCols + 10{
                     engine.cols = minCols
                     gridView.cols = minCols
                 }else {
@@ -48,12 +45,19 @@ class ConfigurationEditorViewController: UIViewController {
         
 
     }
+    func isLiving(y: Int, x: Int) -> Bool {
+        return StandardEngine.sharedEngine.grid[y,x].isLiving()
+    }
+    func switchToAlive(y: Int, x: Int) {
+        StandardEngine.sharedEngine.grid[y,x] = CellState.Alive
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     @IBAction func saveEdit(sender: AnyObject) {
+        savePoints!(GridConfiguration(title: "New Config", points: gridView.points))
         navigationController?.popViewControllerAnimated(true)
     }
 

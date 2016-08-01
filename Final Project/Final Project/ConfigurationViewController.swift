@@ -83,6 +83,13 @@ class ConfigurationViewController: UITableViewController {
       
         editingVC.title = editingString
         editingVC.newPoints = editingPoints
+        editingVC.savePoints = {
+            self.configurations[editingRow] = $0
+            let indexPath = NSIndexPath(forRow: editingRow, inSection: 0)
+            self.tableView.reloadRowsAtIndexPaths([indexPath],
+                                                  withRowAnimation: .Automatic)
+        }
+
         
     }
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
