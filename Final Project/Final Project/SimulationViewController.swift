@@ -14,12 +14,19 @@ class SimulationViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         gridView.rows = StandardEngine.sharedEngine.rows
         gridView.cols = StandardEngine.sharedEngine.cols
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.addObserver(self, selector: #selector(SimulationViewController.stepGrid(_:)), name: "Timer", object: nil)
         
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    func stepGrid(notification: NSNotification) {
+        print("recieved")
+        engine.step()
+        gridView.setNeedsDisplay()
     }
 
     @IBAction func saveGrid(sender: AnyObject) {

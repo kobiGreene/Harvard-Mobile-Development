@@ -211,14 +211,14 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="0.10000000000000001" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="i1L-Fb-QrQ">
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minValue="0.10000000000000001" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="i1L-Fb-QrQ">
                                                 <rect key="frame" x="-2" y="106" width="284" height="37"/>
-                                            </slider>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EhN-Bk-PYU">
-                                                <rect key="frame" x="116" y="142" width="51" height="36"/>
                                                 <connections>
-                                                    <action selector="timerState:" destination="xrk-m4-FgQ" eventType="valueChanged" id="V42-4e-IvJ"/>
+                                                    <action selector="sliderValue:" destination="xrk-m4-FgQ" eventType="valueChanged" id="Ns2-oz-FdE"/>
                                                 </connections>
+                                            </slider>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="EhN-Bk-PYU">
+                                                <rect key="frame" x="116" y="142" width="51" height="36"/>
                                             </switch>
                                         </subviews>
                                         <constraints>
@@ -278,9 +278,11 @@
                     <connections>
                         <outlet property="colsText" destination="RqS-94-jHs" id="efu-4K-1MT"/>
                         <outlet property="linkText" destination="XVO-Hc-M1t" id="FM1-2v-dSa"/>
+                        <outlet property="mySwitch" destination="EhN-Bk-PYU" id="lWF-d4-Tel"/>
                         <outlet property="numberOfCols" destination="fmu-IA-phC" id="PCN-Ym-9bf"/>
                         <outlet property="numberOfRows" destination="Nxx-7S-bQM" id="cFm-J6-jpM"/>
                         <outlet property="rowsText" destination="65y-uT-ew5" id="Whw-uX-MBt"/>
+                        <outlet property="slider" destination="i1L-Fb-QrQ" id="9Hr-h3-6Yo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uEm-V0-cAv" userLabel="First Responder" sceneMemberID="firstResponder"/>

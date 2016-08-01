@@ -6,6 +6,7 @@ class ConfigurationEditorViewController: UIViewController {
     @IBOutlet weak var gridView: GridView!
     
     var newPoints: [(Int,Int)]?
+    var engine = StandardEngine.sharedEngine
     override func viewDidLoad() {
         super.viewDidLoad()
         var highestPointRow = 0
@@ -21,25 +22,27 @@ class ConfigurationEditorViewController: UIViewController {
                 var minRows = highestPointRow + 1
                 var minCols = highestPointCol + 1
                 //Checking to see if previous row range is too small or too big
-                if StandardEngine.sharedEngine.rows < minRows || StandardEngine.sharedEngine.rows > minRows + 1{
-                    StandardEngine.sharedEngine.rows = minRows
+                if engine.rows < minRows || engine.rows > minRows + 1{
+                    engine.rows = minRows
                     gridView.rows = minRows
                 }else {
-                    gridView.rows = StandardEngine.sharedEngine.rows
+                    engine.rows = engine.rows
+                    gridView.rows = engine.rows
                 }
-                if StandardEngine.sharedEngine.cols < minCols || StandardEngine.sharedEngine.cols > minCols + 1{
-                    StandardEngine.sharedEngine.cols = minCols
+                if engine.cols < minCols || engine.cols > minCols + 1{
+                    engine.cols = minCols
                     gridView.cols = minCols
                 }else {
-                    gridView.cols = StandardEngine.sharedEngine.cols
+                    engine.cols = engine.cols
+                    gridView.cols = engine.cols
                 }
                 GridView().points = points
             }
         }else {
-                //StandardEngine.sharedEngine.rows = 20
-                //StandardEngine.sharedEngine.cols = 20
-                gridView.rows = StandardEngine.sharedEngine.rows
-                gridView.cols = StandardEngine.sharedEngine.cols
+            engine.rows = engine.rows
+            engine.cols = engine.cols
+            gridView.rows = engine.rows
+            gridView.cols = engine.cols
         }
         
         

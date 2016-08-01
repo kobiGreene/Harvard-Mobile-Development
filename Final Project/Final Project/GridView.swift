@@ -129,8 +129,8 @@ class GridView: UIView {
             maxRows = mainRows - 1
             let gridPath = UIBezierPath()
             gridPath.lineWidth = gridWidth
-            lineRows = rows + 1
-            lineCols = cols + 1
+            lineRows = rows
+            lineCols = cols
             width = rect.width / CGFloat(mainCols)
             height = rect.height / CGFloat(mainRows)
             //Drawing the grid
