@@ -1,6 +1,7 @@
 
 import UIKit
 
+var globalPoints: [(Int, Int)]!
 class SimulationViewController: UIViewController {
     
     @IBOutlet weak var gridView: GridView!
@@ -13,6 +14,7 @@ class SimulationViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         gridView.rows = StandardEngine.sharedEngine.rows
         gridView.cols = StandardEngine.sharedEngine.cols
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,6 +23,28 @@ class SimulationViewController: UIViewController {
     }
 
     @IBAction func saveGrid(sender: AnyObject) {
+        let alertView = UIAlertController(title: "Save This Configuration", message: "Enter A Name", preferredStyle: .Alert)
+        
+        alertView.addTextFieldWithConfigurationHandler { (textField: UITextField!) -> Void in
+            textField.placeholder = "Input Name"
+        }
+        
+        let saveAction = UIAlertAction(title: "Save", style: .Default) { (alert) -> Void in
+            let textField = alertView.textFields![0]
+            globalPoints = self.gridView.points
+            let text = textField.text!
+            let info = [text]
+            let userInfo = ["Config": info]
+            let notification = NSNotification(name: "UserGrid", object: self, userInfo: userInfo)
+            NSNotificationCenter.defaultCenter().postNotification(notification)
+            
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) { (alert) in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        alertView.addAction(cancelAction)
+        alertView.addAction(saveAction)
+        presentViewController(alertView, animated: true, completion:nil)
     }
     
     @IBAction func resetGrid(sender: AnyObject) {

@@ -2,34 +2,51 @@
 
 import UIKit
 
-var url: NSURL?
+
 
 class ConfigurationViewController: UITableViewController {
     
     var configurations: [GridConfiguration] = []
+    var url: NSURL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         fetch()
         // Do any additional setup after loading the view.
         let nc = NSNotificationCenter.defaultCenter()
-        nc.addObserver(self, selector: #selector(ConfigurationViewController.updateTableView), name: "NewRow", object: nil)
+        nc.addObserver(self, selector: #selector(ConfigurationViewController.updateTableView(_:)), name: "NewRow", object: nil)
+        nc.addObserver(self, selector: #selector(ConfigurationViewController.userInput(_:)), name: "UserGrid", object: nil)
+        nc.addObserver(self, selector: #selector(ConfigurationViewController.tableviewReload(_:)), name: "reset", object: nil)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    func tableviewReload(notification: NSNotification) {
+        let info = NSURL(string: notification.userInfo!["url"] as! String)
+        url = info
+        configurations.removeAll()
+        fetch()
+    }
     func updateTableView(notification: NSNotification) {
-        var title = notification.userInfo!["Name"] as! String
+        let title = notification.userInfo!["Name"] as! String
         configurations.append(GridConfiguration(title: title, points: nil))
         let itemRow = configurations.count - 1
         let itemPath = NSIndexPath(forRow:itemRow, inSection: 0)
         tableView.insertRowsAtIndexPaths([itemPath], withRowAnimation: .Automatic)
     }
+    func userInput (notification: NSNotification) {
+        let config = notification.userInfo!["Config"]
+        let title = config![0] as! String
+        let userPoints = globalPoints
+        configurations.append(GridConfiguration(title: title, points: userPoints))
+        let itemRow = configurations.count - 1
+        let itemPath = NSIndexPath(forRow:itemRow, inSection: 0)
+        tableView.insertRowsAtIndexPaths([itemPath], withRowAnimation: .Automatic)
+
+    }
     func fetch() {
-        print("fetch called")
-        print(url)
         if url == nil {
             url = NSURL(string: "https://dl.dropboxusercontent.com/u/7544475/S65g.json")!
         }
@@ -67,6 +84,10 @@ class ConfigurationViewController: UITableViewController {
         editingVC.title = editingString
         editingVC.newPoints = editingPoints
         
+    }
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+      
+        return "Configurations"
     }
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1

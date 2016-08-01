@@ -16,25 +16,24 @@ class ConfigurationEditorViewController: UIViewController {
                 var highestPointsCol = points.map({$0.1}).sort({$0 > $1})
                 highestPointRow = highestPointsRow[0]
                 highestPointCol = highestPointsCol[0]
-                GridView().points = points
                 print(highestPointRow)
                 print(highestPointCol)
                 var minRows = highestPointRow + 1
                 var minCols = highestPointCol + 1
                 //Checking to see if previous row range is too small or too big
-                if StandardEngine.sharedEngine.rows < minRows || StandardEngine.sharedEngine.rows > minRows + 10{
+                if StandardEngine.sharedEngine.rows < minRows || StandardEngine.sharedEngine.rows > minRows + 1{
                     StandardEngine.sharedEngine.rows = minRows
                     gridView.rows = minRows
                 }else {
                     gridView.rows = StandardEngine.sharedEngine.rows
                 }
-                if StandardEngine.sharedEngine.cols < minCols || StandardEngine.sharedEngine.cols > minCols + 10{
+                if StandardEngine.sharedEngine.cols < minCols || StandardEngine.sharedEngine.cols > minCols + 1{
                     StandardEngine.sharedEngine.cols = minCols
                     gridView.cols = minCols
                 }else {
                     gridView.cols = StandardEngine.sharedEngine.cols
                 }
-                
+                GridView().points = points
             }
         }else {
                 //StandardEngine.sharedEngine.rows = 20
@@ -51,6 +50,9 @@ class ConfigurationEditorViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func saveEdit(sender: AnyObject) {
+        navigationController?.popViewControllerAnimated(true)
+    }
 
     /*
     // MARK: - Navigation

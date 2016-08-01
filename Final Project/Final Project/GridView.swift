@@ -32,6 +32,7 @@ class GridView: UIView {
     @IBInspectable var diedColor: UIColor = UIColor.redColor()
     @IBInspectable var gridColor: UIColor = UIColor.blackColor()
     @IBInspectable var gridWidth: CGFloat = 30.0
+    
     var points: Array<(Int,Int)> {
         get {
             var array = [(Int,Int)]()
@@ -54,14 +55,13 @@ class GridView: UIView {
             print(mainRows)
             print(mainCols)
             print(StandardEngine.sharedEngine.rows)
-            for y in 0..<StandardEngine.sharedEngine.rows {
-                for x in 0..<StandardEngine.sharedEngine.cols {
-                    for point in newValue {
+            for point in newValue {
+                for y in 0..<StandardEngine.sharedEngine.rows {
+                    for x in 0..<StandardEngine.sharedEngine.cols {
                         if y == point.0 && x == point.1{
                             print(point)
                             StandardEngine.sharedEngine.grid[y,x] = CellState.Alive
-                        }else {
-                            StandardEngine.sharedEngine.grid[y,x] = CellState.Empty
+                            print(StandardEngine.sharedEngine.grid[y,x])
                         }
                 }
             }

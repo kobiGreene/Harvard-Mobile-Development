@@ -15,8 +15,6 @@ class InstrumentationViewController: UIViewController,UITextFieldDelegate {
         // Do any additional setup after loading the view, typically from a nib.
         colsText.delegate = self
         rowsText.delegate = self
-        StandardEngine.sharedEngine.rows = Int(numberOfRows.text!)!
-        StandardEngine.sharedEngine.cols = Int(numberOfCols.text!)!
 
     }
     @IBAction func addRow(sender: AnyObject) {
@@ -32,28 +30,31 @@ class InstrumentationViewController: UIViewController,UITextFieldDelegate {
     func textFieldDidEndEditing(textField: UITextField) {
         if textField.tag == 1 {
             numberOfRows.text = textField.text!
-            if textField.text != nil {
+            if textField.text != nil || textField.text != " "{
                 StandardEngine.sharedEngine.rows = Int(numberOfRows.text!)!
-//                let userInfo = ["Row": textField.text!]
-//                let notification = NSNotification(name: "NumRows", object: self, userInfo: userInfo)
-//                NSNotificationCenter.defaultCenter().postNotification(notification)
             }
         }else if textField.tag == 2{
             numberOfCols.text = textField.text!
-            if textField.text != nil {
+            if textField.text != nil || textField.text != " "{
                 StandardEngine.sharedEngine.cols = Int(numberOfCols.text!)!
-//                let userInfo = ["Col": textField.text!]
-//                let notification = NSNotification(name: "NumCols", object: self, userInfo: userInfo)
-//                NSNotificationCenter.defaultCenter().postNotification(notification)
             }
         }
     }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 
+    @IBAction func timerState(sender: AnyObject) {
+    }
     @IBAction func resetTableView(sender: AnyObject) {
+        var info = ""
         if let linkText = linkText.text {
-            url = NSURL(string: linkText)
+            info =  linkText
         }
-        ConfigurationViewController().tableView.reloadData()
+        var userInfo = ["url": info]
+        let notification = NSNotification(name: "reset", object: nil, userInfo: userInfo)
+        NSNotificationCenter.defaultCenter().postNotification(notification)
     }
     
 
