@@ -18,10 +18,6 @@ class SimulationViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         gridView.rows = StandardEngine.sharedEngine.rows
         gridView.cols = StandardEngine.sharedEngine.cols
-        if timerOn == true {
-            engine.refreshTimer = NSTimer(timeInterval: engine.refreshRate, target: self, selector: #selector(SimulationViewController.stepGrid), userInfo: nil, repeats: true)
-            //engine.refreshTimer?.fire()
-        }
         
     }
 
@@ -31,23 +27,21 @@ class SimulationViewController: UIViewController {
     }
     override func viewDidDisappear(animated: Bool) {
         //let nc = NSNotificationCenter.defaultCenter()
-        //nc.removeObserver(self, name: "TimerOn", object: nil)
-    }
-    func stopTimer(notification: NSNotification) {
         engine.refreshTimer?.invalidate()
     }
+    func stopTimer(notification: NSNotification) {
+        engine.refreshTimer!.invalidate()
+    }
     func getTimer(notification: NSNotification) {
-        engine.refreshTimer?.fire()
+        print("here")
+        engine.refreshTimer = NSTimer(timeInterval: engine.refreshRate, target: self, selector: #selector(SimulationViewController.stepGrid), userInfo: nil, repeats: true)
+        engine.refreshTimer!.fire()
         
     }
     func stepGrid() {
         print("recieved")
         engine.step()
         gridView.setNeedsDisplay()
-    }
-    func runTimer() {
-        print("run time")
-        
     }
 
     @IBAction func saveGrid(sender: AnyObject) {
