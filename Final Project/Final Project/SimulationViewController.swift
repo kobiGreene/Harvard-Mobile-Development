@@ -23,6 +23,10 @@ class SimulationViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    override func viewDidDisappear(animated: Bool) {
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.removeObserver(self, name: "Timer", object: nil)
+    }
     func stepGrid(notification: NSNotification) {
         print("recieved")
         engine.step()

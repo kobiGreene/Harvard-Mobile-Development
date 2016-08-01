@@ -11,7 +11,7 @@ class InstrumentationViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var slider: UISlider!
 
     var userRefreshRate:Float = 0.0
-    
+    var switchOn = false
     var engine = StandardEngine.sharedEngine
     
     override func viewDidLoad() {
@@ -20,27 +20,33 @@ class InstrumentationViewController: UIViewController,UITextFieldDelegate {
         colsText.delegate = self
         rowsText.delegate = self
         mySwitch.addTarget(self, action: #selector(InstrumentationViewController.stateChanged(_:)), forControlEvents: UIControlEvents.ValueChanged)
-       engine.refreshRate = Double(slider.value)
+        engine.refreshRate = Double(slider.value)
 
     }
    
     @IBAction func sliderValue(sender: AnyObject) {
         engine.refreshRate = Double(slider.value)
-        print(engine.refreshRate)
+        if switchOn == true {
+            engine.refreshTimer = NSTimer(timeInterval: engine.refreshRate, target: self, selector: #selector(InstrumentationViewController.updateGrid), userInfo: nil, repeats: true)
+            engine.refreshTimer!.fire()
+        }
     }
     
     func stateChanged(switchState: UISwitch) {
+         engine.refreshTimer = NSTimer(timeInterval: engine.refreshRate, target: self, selector: #selector(InstrumentationViewController.updateGrid), userInfo: nil, repeats: true)
         if switchState.on {
-            engine.refreshTimer = NSTimer(timeInterval: engine.refreshRate, target: self, selector: #selector(InstrumentationViewController.updateGrid), userInfo: nil, repeats: true)
-            engine.refreshTimer?.fire()
+            engine.refreshTimer!.fire()
+            switchOn = true
         }else {
-           engine.refreshTimer?.invalidate()
+           engine.refreshTimer!.invalidate()
+            switchOn = false
         }
     }
     func updateGrid() {
         let userInfo = ["Timer": "Fired"]
         let notification = NSNotification(name: "Timer", object: self, userInfo: userInfo)
         NSNotificationCenter.defaultCenter().postNotification(notification)
+        print("hello")
     }
     @IBAction func addRow(sender: AnyObject) {
         let userInfo = ["Name": "New Configuration"]

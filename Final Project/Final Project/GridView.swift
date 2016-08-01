@@ -21,10 +21,13 @@ class GridView: UIView {
         }
         
     }
+    var sGrid: GridProtocol!
     override func didMoveToWindow() {
-        //
+        //print(neighbors((y: 8, x: 5)))
+        //Init the grid Cells to empty
         mainRows = rows
         mainCols = cols
+
     }
     @IBInspectable var livingColor: UIColor = UIColor.greenColor()
     @IBInspectable var emptyColor: UIColor = UIColor.grayColor()
@@ -37,8 +40,8 @@ class GridView: UIView {
         get {
             var array = [(Int,Int)]()
             print(StandardEngine.sharedEngine.grid)
-            for y in 0..<StandardEngine.sharedEngine.rows {
-                for x in 0..<StandardEngine.sharedEngine.cols {
+            for y in 0..<mainRows {
+                for x in 0..<mainCols {
                     if StandardEngine.sharedEngine.grid[y,x].isLiving() {
                         
                         print("down")
