@@ -60,18 +60,9 @@ class GridView: UIView {
     var lineCols: Int!
     var width: CGFloat!
     var height: CGFloat!
-    var maxCol: Int!
-    var maxRows: Int!
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
         if rect.size.width <= self.frame.width / 2 {
-            let newRow = Int(ceil(rect.origin.y / height))
-            let newCol = Int(ceil(rect.origin.x / width))
-            let center = findCenter(newRow, col: newCol, theWidth: width, theHeight: height)
-            let radius = (width / 2) - 0.5
-            let arcWidth: CGFloat = 0.1
-            let startAngle: CGFloat = 0
-            let endAngle: CGFloat = 2 * CGFloat(M_PI)
             let gridPath = UIBezierPath()
             gridPath.lineWidth = gridWidth
             gridPath.moveToPoint(CGPoint(x: rect.origin.x, y: rect.origin.y))
@@ -86,6 +77,14 @@ class GridView: UIView {
             gridPath.addLineToPoint(CGPoint(x: rect.origin.x + width , y: rect.origin.y + height))
             gridColor.setStroke()
             gridPath.stroke()
+            
+            let newRow = Int(ceil(rect.origin.y / height))
+            let newCol = Int(ceil(rect.origin.x / width))
+            let center = findCenter(newRow, col: newCol, theWidth: width, theHeight: height)
+            let radius = (width / 2) - (width / 8)
+            let arcWidth: CGFloat = 0.1
+            let startAngle: CGFloat = 0
+            let endAngle: CGFloat = 2 * CGFloat(M_PI)
             let oval = UIBezierPath(arcCenter: center,
                                     radius: radius,
                                     startAngle: startAngle,
@@ -110,14 +109,12 @@ class GridView: UIView {
             oval.fill()
             oval.stroke()
         }else {
-            maxCol = mainCols - 1
-            maxRows = mainRows - 1
             let gridPath = UIBezierPath()
             gridPath.lineWidth = gridWidth
             lineRows = rows
             lineCols = cols
-            width = rect.width / CGFloat(mainCols)
-            height = rect.height / CGFloat(mainRows)
+            width = rect.width / CGFloat(mainCols - 1)
+            height = rect.height / CGFloat(mainRows - 1)
             //Drawing the grid
             for i in 0..<lineRows{
                 gridPath.moveToPoint(CGPoint(x: bounds.origin.x, y: bounds.origin.y + height * CGFloat(i)))
@@ -135,7 +132,7 @@ class GridView: UIView {
                 for x in 0..<mainCols {
                     //Draws circle
                     let center = findCenter(y, col: x, theWidth: width, theHeight: height)
-                    let radius = (width / 2) - 0.5
+                    let radius = (width / 2) - (width / 8)
                     let arcWidth: CGFloat = 0.1
                     let startAngle: CGFloat = 0
                     let endAngle: CGFloat = 2 * CGFloat(M_PI)
