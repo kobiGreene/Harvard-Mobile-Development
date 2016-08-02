@@ -8,6 +8,7 @@ class ConfigurationEditorViewController: UIViewController {
     var newPoints: [(Int,Int)]?
     var engine = StandardEngine.sharedEngine
     var savePoints: (GridConfiguration -> Void)?
+    var originalPoints: [(Int,Int)]?
     override func viewDidLoad() {
         super.viewDidLoad()
         if newPoints != nil {
@@ -31,7 +32,8 @@ class ConfigurationEditorViewController: UIViewController {
                     engine.cols = engine.cols
                     gridView.cols = engine.cols
                 }
-                GridView().points = points
+                originalPoints = points
+                gridView.points = points
             }
         }else {
             engine.rows = engine.rows
@@ -48,6 +50,9 @@ class ConfigurationEditorViewController: UIViewController {
     }
     func switchToAlive(y: Int, x: Int) {
         StandardEngine.sharedEngine.grid[y,x] = CellState.Alive
+    }
+    func gridStates(y: Int, x: Int) -> CellState {
+            return engine.grid[y,x]
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -75,7 +80,6 @@ class ConfigurationEditorViewController: UIViewController {
         alertView.addAction(cancelAction)
         alertView.addAction(saveAction)
         presentViewController(alertView, animated: true, completion:nil)
-        
     }
 
     /*

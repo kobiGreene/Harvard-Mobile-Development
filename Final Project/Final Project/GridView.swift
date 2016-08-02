@@ -106,7 +106,7 @@ class GridView: UIView {
                                     clockwise: true)
             //Changing color for circle based on status
             oval.lineWidth = arcWidth
-            switch engine.grid[newRow,newCol]{
+            switch ConfigurationEditorViewController().gridStates(newRow, x: newCol){
             case .Alive:
                 livingColor.setFill()
                 livingColor.setStroke()
@@ -162,7 +162,7 @@ class GridView: UIView {
                     oval.lineWidth = arcWidth
                 
                     //Changing color for circle based on status
-                    switch engine.grid[y,x]{
+                    switch ConfigurationEditorViewController().gridStates(y, x: x){
                     case .Alive:
                         livingColor.setFill()
                         livingColor.setStroke()
