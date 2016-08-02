@@ -14,8 +14,6 @@ class ConfigurationEditorViewController: UIViewController {
             if let points = newPoints {
                 let highestPointRow = points.map({$0.0}).reduce(0) {$0 > $1 ? $0 : $1}
                 let highestPointCol = points.map({$0.1}).reduce(0) {$0 > $1 ? $0 : $1}
-                print(highestPointRow)
-                print(highestPointCol)
                 let minRows = highestPointRow + 1
                 let minCols = highestPointCol + 1
                 //Checking to see if previous row range is too small or too big
@@ -57,8 +55,27 @@ class ConfigurationEditorViewController: UIViewController {
     }
     
     @IBAction func saveEdit(sender: AnyObject) {
-        savePoints!(GridConfiguration(title: "New Config", points: gridView.points))
-        navigationController?.popViewControllerAnimated(true)
+        let alertView = UIAlertController(title: "Save This Configuration", message: "Enter A Name", preferredStyle: .Alert)
+        
+        alertView.addTextFieldWithConfigurationHandler { (textField: UITextField!) -> Void in
+            textField.placeholder = "Input Name"
+        }
+        
+        let saveAction = UIAlertAction(title: "Save", style: .Default) { (alert) -> Void in
+            let textField = alertView.textFields![0]
+            globalPoints = self.gridView.points
+            let text = textField.text!
+            self.savePoints!(GridConfiguration(title: text, points: self.gridView.points))
+            self.navigationController?.popViewControllerAnimated(true)
+            
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) { (alert) in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        alertView.addAction(cancelAction)
+        alertView.addAction(saveAction)
+        presentViewController(alertView, animated: true, completion:nil)
+        
     }
 
     /*

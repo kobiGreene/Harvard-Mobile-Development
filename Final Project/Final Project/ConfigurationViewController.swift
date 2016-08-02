@@ -84,10 +84,18 @@ class ConfigurationViewController: UITableViewController {
         editingVC.title = editingString
         editingVC.newPoints = editingPoints
         editingVC.savePoints = {
-            self.configurations[editingRow] = $0
-            let indexPath = NSIndexPath(forRow: editingRow, inSection: 0)
-            self.tableView.reloadRowsAtIndexPaths([indexPath],
-                                                  withRowAnimation: .Automatic)
+            if self.configurations[editingRow].title == "New Configuration"{
+                self.configurations[editingRow] = $0
+                let indexPath = NSIndexPath(forRow: editingRow, inSection: 0)
+                self.tableView.reloadRowsAtIndexPaths([indexPath],
+                                                      withRowAnimation: .Automatic)
+
+            }else {
+            self.configurations.append($0)
+            let itemRow = self.configurations.count - 1
+            let itemPath = NSIndexPath(forRow:itemRow, inSection: 0)
+            self.tableView.insertRowsAtIndexPaths([itemPath], withRowAnimation: .Automatic)
+            }
         }
 
         
