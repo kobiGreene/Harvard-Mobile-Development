@@ -64,7 +64,6 @@ class GridView: UIView {
     var maxRows: Int!
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
-        print("Draw Rect rows \(mainRows)")
         if rect.size.width <= self.frame.width / 2 {
             let newRow = Int(ceil(rect.origin.y / height))
             let newCol = Int(ceil(rect.origin.x / width))

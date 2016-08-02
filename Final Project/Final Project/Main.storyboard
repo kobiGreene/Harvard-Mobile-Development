@@ -346,16 +346,28 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="240"/>
                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t2M-kK-fpl">
-                                <rect key="frame" x="283" y="178" width="34" height="30"/>
-                                <state key="normal" title="Save"/>
-                                <variation key="heightClass=compact-widthClass=compact" ambiguous="YES" misplaced="YES">
-                                    <rect key="frame" x="183" y="130" width="34" height="30"/>
-                                </variation>
-                                <connections>
-                                    <action selector="saveEdit:" destination="n4S-nb-Bcc" eventType="touchUpInside" id="Db4-NF-2tC"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="Hr6-wx-QvD">
+                                <rect key="frame" x="241" y="178" width="118" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Gg-r6-IkJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="34" height="30"/>
+                                        <state key="normal" title="Use"/>
+                                        <connections>
+                                            <action selector="useConfig:" destination="n4S-nb-Bcc" eventType="touchUpInside" id="W3O-se-Cfb"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t2M-kK-fpl">
+                                        <rect key="frame" x="84" y="0.0" width="34" height="30"/>
+                                        <state key="normal" title="Save"/>
+                                        <connections>
+                                            <action selector="saveEdit:" destination="n4S-nb-Bcc" eventType="touchUpInside" id="Db4-NF-2tC"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="t2M-kK-fpl" firstAttribute="width" secondItem="1Gg-r6-IkJ" secondAttribute="width" id="OYx-lP-P7O"/>
+                                </constraints>
+                            </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ICL-ow-7Zq" customClass="GridView" customModule="Final_Project" customModuleProvider="target">
                                 <rect key="frame" x="5" y="5" width="590" height="168"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -367,19 +379,19 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="win-xr-dHp" secondAttribute="bottom" id="5QI-wl-jAF"/>
+                            <constraint firstItem="Hr6-wx-QvD" firstAttribute="top" secondItem="ICL-ow-7Zq" secondAttribute="bottom" constant="5" id="Fd0-CQ-tf0"/>
                             <constraint firstItem="ICL-ow-7Zq" firstAttribute="leading" secondItem="jSo-Tg-fvB" secondAttribute="leadingMargin" id="GMJ-ma-7Y0"/>
                             <constraint firstItem="ICL-ow-7Zq" firstAttribute="top" secondItem="ZOt-fP-PEx" secondAttribute="bottom" constant="5" id="HOK-Jy-ppJ"/>
                             <constraint firstItem="win-xr-dHp" firstAttribute="leading" secondItem="jSo-Tg-fvB" secondAttribute="leading" id="IaW-dL-P5V"/>
                             <constraint firstItem="ICL-ow-7Zq" firstAttribute="width" secondItem="jSo-Tg-fvB" secondAttribute="width" multiplier="0.75" id="OX2-qv-BRC"/>
                             <constraint firstItem="ICL-ow-7Zq" firstAttribute="leading" secondItem="jSo-Tg-fvB" secondAttribute="leading" constant="5" id="Y8B-gd-UFv"/>
-                            <constraint firstItem="t2M-kK-fpl" firstAttribute="top" secondItem="ICL-ow-7Zq" secondAttribute="bottom" constant="5" id="bpf-yI-Edw"/>
                             <constraint firstItem="ICL-ow-7Zq" firstAttribute="height" secondItem="jSo-Tg-fvB" secondAttribute="height" multiplier="0.7" id="feg-g3-QYm"/>
                             <constraint firstItem="cdd-FN-x9p" firstAttribute="top" secondItem="ICL-ow-7Zq" secondAttribute="bottom" id="g2X-hU-wWt"/>
+                            <constraint firstItem="Hr6-wx-QvD" firstAttribute="centerX" secondItem="jSo-Tg-fvB" secondAttribute="centerX" id="jJY-1A-gPk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ICL-ow-7Zq" secondAttribute="trailing" id="pei-6r-TLi"/>
                             <constraint firstAttribute="trailing" secondItem="ICL-ow-7Zq" secondAttribute="trailing" constant="5" id="sqC-Ui-mL5"/>
                             <constraint firstAttribute="trailing" secondItem="win-xr-dHp" secondAttribute="trailing" id="xRm-jD-SGA"/>
                             <constraint firstItem="ICL-ow-7Zq" firstAttribute="centerX" secondItem="jSo-Tg-fvB" secondAttribute="centerX" id="xye-tU-bWS"/>
-                            <constraint firstItem="t2M-kK-fpl" firstAttribute="centerX" secondItem="jSo-Tg-fvB" secondAttribute="centerX" id="y9v-td-5bG"/>
                             <constraint firstItem="win-xr-dHp" firstAttribute="top" secondItem="jSo-Tg-fvB" secondAttribute="top" id="zU9-PZ-Ipf"/>
                         </constraints>
                         <variation key="default">
@@ -399,7 +411,6 @@
                                 <exclude reference="feg-g3-QYm"/>
                                 <exclude reference="sqC-Ui-mL5"/>
                                 <exclude reference="xye-tU-bWS"/>
-                                <exclude reference="bpf-yI-Edw"/>
                             </mask>
                         </variation>
                     </view>

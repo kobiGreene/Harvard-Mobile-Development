@@ -18,14 +18,14 @@ class ConfigurationEditorViewController: UIViewController {
                 let minRows = highestPointRow + 1
                 let minCols = highestPointCol + 1
                 //Checking to see if previous row range is too small or too big
-                if engine.rows < minRows || engine.rows > minRows + 10 {
+                if engine.rows < minRows {
                     engine.rows = minRows
                     gridView.rows = minRows
                 }else {
                     engine.rows = engine.rows
                     gridView.rows = engine.rows
                 }
-                if engine.cols < minCols || engine.cols > minCols + 10{
+                if engine.cols < minCols {
                     engine.cols = minCols
                     gridView.cols = minCols
                 }else {
@@ -61,6 +61,10 @@ class ConfigurationEditorViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    @IBAction func useConfig(sender: AnyObject) {
+         self.navigationController?.popViewControllerAnimated(true)
+    }
+    
     
     @IBAction func saveEdit(sender: AnyObject) {
         let alertView = UIAlertController(title: "Save This Configuration", message: "Enter A Name", preferredStyle: .Alert)

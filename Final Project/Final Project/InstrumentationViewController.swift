@@ -10,12 +10,12 @@ class InstrumentationViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var mySwitch: UISwitch!
     @IBOutlet weak var slider: UISlider!
 
-    var userRefreshRate:Float = 0.0
     var switchOn = false
     var engine = StandardEngine.sharedEngine
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        engine.refreshRate = Double(slider.value)
         // Do any additional setup after loading the view, typically from a nib.
         colsText.delegate = self
         rowsText.delegate = self
@@ -25,28 +25,28 @@ class InstrumentationViewController: UIViewController,UITextFieldDelegate {
    
     @IBAction func sliderValue(sender: AnyObject) {
         engine.refreshRate = Double(slider.value)
+        if switchOn {
+            engine.refreshTimer?.invalidate()
+            engine.refreshTimer = NSTimer.scheduledTimerWithTimeInterval(engine.refreshRate, target: self, selector: #selector(InstrumentationViewController.fireTimerNotif), userInfo: nil, repeats: true)
+        }
     }
     
     func stateChanged(switchState: UISwitch) {
         if switchState.on {
-            updateGrid()
+            engine.refreshTimer = NSTimer.scheduledTimerWithTimeInterval(engine.refreshRate, target: self, selector: #selector(InstrumentationViewController.fireTimerNotif), userInfo: nil, repeats: true)
             switchOn = true
         }else {
+            if engine.refreshTimer != nil {
+                engine.refreshTimer!.invalidate()
+            }
             switchOn = false
-            stopTime()
+            
         }
     }
-    func updateGrid() {
-        let userInfo = ["Timer": "On"]
+    func fireTimerNotif() {
+        let userInfo = ["Timer": "Timer Fired"]
         let notification = NSNotification(name: "TimerOn", object: self, userInfo: userInfo)
         NSNotificationCenter.defaultCenter().postNotification(notification)
-        print("hello")
-    }
-    func stopTime() {
-        let userInfo = ["Timer": "Off"]
-        let notification = NSNotification(name: "TimerOff", object: self, userInfo: userInfo)
-        NSNotificationCenter.defaultCenter().postNotification(notification)
-        print("stop")
     }
     @IBAction func addRow(sender: AnyObject) {
         let userInfo = ["Name": "New Configuration"]

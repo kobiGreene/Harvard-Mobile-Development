@@ -11,13 +11,12 @@ class SimulationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let nc = NSNotificationCenter.defaultCenter()
-        nc.addObserver(self, selector: #selector(SimulationViewController.getTimer(_:)), name: "TimerOn", object: nil)
-        nc.addObserver(self, selector: #selector(SimulationViewController.stopTimer(_:)), name: "TimerOff", object: nil)
     }
     override func viewDidAppear(animated: Bool) {
         gridView.rows = StandardEngine.sharedEngine.rows
         gridView.cols = StandardEngine.sharedEngine.cols
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.addObserver(self, selector: #selector(SimulationViewController.stepGrid(_:)), name: "TimerOn", object: nil)
         
     }
 
@@ -26,25 +25,17 @@ class SimulationViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     override func viewDidDisappear(animated: Bool) {
-        //let nc = NSNotificationCenter.defaultCenter()
-        engine.refreshTimer?.invalidate()
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.removeObserver(self, name: "TimerOn", object: nil)
     }
-    func stopTimer(notification: NSNotification) {
-        engine.refreshTimer!.invalidate()
-    }
-    func getTimer(notification: NSNotification) {
-        print("here")
-        engine.refreshTimer = NSTimer(timeInterval: engine.refreshRate, target: self, selector: #selector(SimulationViewController.stepGrid), userInfo: nil, repeats: true)
-        engine.refreshTimer!.fire()
-        
-    }
-    func stepGrid() {
-        print("recieved")
+    func stepGrid(notification: NSNotification) {
         engine.step()
         gridView.setNeedsDisplay()
     }
 
     @IBAction func saveGrid(sender: AnyObject) {
+        engine.refreshTimer?.invalidate()
+    
         let alertView = UIAlertController(title: "Save This Configuration", message: "Enter A Name", preferredStyle: .Alert)
         
         alertView.addTextFieldWithConfigurationHandler { (textField: UITextField!) -> Void in
