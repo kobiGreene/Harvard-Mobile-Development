@@ -10,7 +10,6 @@ class GridView: UIView {
     @IBInspectable var rows: Int = 0 {
         didSet{
             //resetgrid
-            print("This is it \(rows)")
             mainRows = rows
             setNeedsDisplay()
         }
@@ -37,32 +36,23 @@ class GridView: UIView {
             for y in 0..<mainRows {
                 for x in 0..<mainCols {
                     if ConfigurationEditorViewController().isLiving(y,x: x) {
-                        
-                        print("down")
-                        print(y)
-                        print(x)
                         array.append((y,x))
-                        print(array)
                     }
                 }
             }
             return array
         }
         set {
-            print(mainRows)
-            print(mainCols)
-            print("Rows \(mainRows)")
             for point in newValue {
                 for y in 0..<mainRows {
                     for x in 0..<mainCols {
                         if y == point.0 && x == point.1{
-                            print(point)
                             ConfigurationEditorViewController().switchToAlive(y, x: x)
                         }
                 }
             }
             }
-           print("done")
+
         }
     }
     
@@ -146,7 +136,6 @@ class GridView: UIView {
                 for x in 0..<mainCols {
                     //Draws circle
                     let center = findCenter(y, col: x, theWidth: width, theHeight: height)
-                    //print(center)
                     let radius = (width / 2) - 0.5
                     let arcWidth: CGFloat = 0.1
                     let startAngle: CGFloat = 0
@@ -192,7 +181,6 @@ class GridView: UIView {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         var rect = CGRect(x:0, y: 0, width: width, height: height)
         for touch in touches {
-            //print("Hello")
             for y in 0..<mainRows {
                 for x in 0..<mainCols {
                     // creates rect that moves to check which cell was touched
