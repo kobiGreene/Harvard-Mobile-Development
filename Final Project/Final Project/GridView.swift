@@ -52,7 +52,6 @@ class GridView: UIView {
             print(mainRows)
             print(mainCols)
             print("Rows \(mainRows)")
-            print(StandardEngine.sharedEngine.rows)
             for point in newValue {
                 for y in 0..<mainRows {
                     for x in 0..<mainCols {
@@ -73,7 +72,6 @@ class GridView: UIView {
     var height: CGFloat!
     var maxCol: Int!
     var maxRows: Int!
-    var engine = StandardEngine.sharedEngine
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
         print("Draw Rect rows \(mainRows)")
@@ -200,10 +198,10 @@ class GridView: UIView {
                     // creates rect that moves to check which cell was touched
                     rect.origin = CGPoint(x: 0.0 + width * CGFloat(x), y: 0 + height * CGFloat(y))
                     if CGRectContainsPoint(rect, touch.locationInView(self)){
-                        if engine.grid[y,x].isLiving() {
-                            engine.grid[y,x] = CellState.Empty
+                        if ConfigurationEditorViewController().isLiving(y,x: x) {
+                            ConfigurationEditorViewController().switchToEmpty(y, x: x)
                         }else {
-                            engine.grid[y,x] = CellState.Alive
+                            ConfigurationEditorViewController().switchToAlive(y, x: x)
                         }
                         
                         setNeedsDisplayInRect(rect)

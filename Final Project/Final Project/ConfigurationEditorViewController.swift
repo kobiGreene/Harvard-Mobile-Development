@@ -51,6 +51,9 @@ class ConfigurationEditorViewController: UIViewController {
     func switchToAlive(y: Int, x: Int) {
         StandardEngine.sharedEngine.grid[y,x] = CellState.Alive
     }
+    func switchToEmpty(y: Int, x: Int) {
+        StandardEngine.sharedEngine.grid[y,x] = CellState.Empty
+    }
     func gridStates(y: Int, x: Int) -> CellState {
             return engine.grid[y,x]
     }
