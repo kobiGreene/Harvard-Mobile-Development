@@ -62,13 +62,13 @@ class InstrumentationViewController: UIViewController,UITextFieldDelegate {
         mySwitch.setOn(false, animated: true)
         if textField.tag == 1 {
             numberOfRows.text = textField.text!
-            if textField.text != nil && textField.text != " " && textField.text != ""{
+            if textField.text != nil && textField.text != " " && textField.text != "" && !(textField.text?.containsString(" "))!{
                 var userRows = Int(numberOfRows.text!)!
                 engine.rows = userRows
                 }
         }else if textField.tag == 2{
             numberOfCols.text = textField.text!
-            if textField.text != nil && textField.text != " " && textField.text != ""{
+            if textField.text != nil && textField.text != " " && textField.text != "" && !(textField.text?.containsString(" "))!{
                 var userCols = Int(numberOfCols.text!)!
                     engine.cols = userCols
                
@@ -78,6 +78,10 @@ class InstrumentationViewController: UIViewController,UITextFieldDelegate {
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
+        view.endEditing(true)
+        super.touchesBegan(touches, withEvent: event)
     }
 
     @IBAction func resetTableView(sender: AnyObject) {

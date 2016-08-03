@@ -128,7 +128,7 @@ struct Grid: GridProtocol {
     init (_ rows: Int, _ cols: Int, cellInitializer: CellInitializer = {_ in .Empty }) {
         self.rows = rows
         self.cols = cols
-        self.cells = (0...rows*cols).map {
+        self.cells = (0..<rows*cols).map {
             let pos = Position($0/cols, $0%cols)
             return Cell(pos, cellInitializer(pos))
         }
