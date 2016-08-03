@@ -63,13 +63,13 @@ class InstrumentationViewController: UIViewController,UITextFieldDelegate {
         if textField.tag == 1 {
             numberOfRows.text = textField.text!
             if textField.text != nil && textField.text != " " && textField.text != "" && !(textField.text?.containsString(" "))!{
-                var userRows = Int(numberOfRows.text!)!
+                let userRows = Int(numberOfRows.text!)!
                 engine.rows = userRows
                 }
         }else if textField.tag == 2{
             numberOfCols.text = textField.text!
             if textField.text != nil && textField.text != " " && textField.text != "" && !(textField.text?.containsString(" "))!{
-                var userCols = Int(numberOfCols.text!)!
+                let userCols = Int(numberOfCols.text!)!
                     engine.cols = userCols
                
             }
