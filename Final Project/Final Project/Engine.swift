@@ -55,19 +55,19 @@ protocol EngineProtocol {
 typealias CellInitializer = (Position) -> CellState
 
 class StandardEngine: EngineProtocol {
-    static var _sharedEngine: StandardEngine = StandardEngine(20,20)
+    static var _sharedEngine: StandardEngine = StandardEngine(10,10)
     static var sharedEngine: StandardEngine { get { return _sharedEngine } }
     
     var grid: GridProtocol
 
-    var rows: Int = 20 {
+    var rows: Int = 10 {
         didSet {
             grid = Grid(self.rows, self.cols) { _,_ in .Empty }
             if let delegate = delegate { delegate.engineDidUpdate(grid) }
         }
     }
     
-    var cols: Int = 20 {
+    var cols: Int = 10 {
         didSet {
             grid = Grid(self.rows, self.cols) { _,_ in .Empty }
             if let delegate = delegate { delegate.engineDidUpdate(grid) }

@@ -59,15 +59,20 @@ class InstrumentationViewController: UIViewController,UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     func textFieldDidEndEditing(textField: UITextField) {
+        mySwitch.setOn(false, animated: true)
         if textField.tag == 1 {
+           
             numberOfRows.text = textField.text!
             if textField.text != nil && textField.text != " " && textField.text != ""{
+                var userRows = Int(numberOfRows.text!)!
                 engine.rows = Int(numberOfRows.text!)!
-            }
+                }
         }else if textField.tag == 2{
             numberOfCols.text = textField.text!
             if textField.text != nil && textField.text != " " && textField.text != ""{
-                engine.cols = Int(numberOfCols.text!)!
+                var userCols = Int(numberOfCols.text!)!
+                    engine.cols = Int(numberOfCols.text!)!
+               
             }
         }
     }

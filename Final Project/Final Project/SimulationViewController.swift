@@ -13,8 +13,8 @@ class SimulationViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     override func viewDidAppear(animated: Bool) {
-        gridView.rows = StandardEngine.sharedEngine.rows
-        gridView.cols = StandardEngine.sharedEngine.cols
+        gridView.rows = engine.rows
+        gridView.cols = engine.cols
         let nc = NSNotificationCenter.defaultCenter()
         nc.addObserver(self, selector: #selector(SimulationViewController.stepGrid(_:)), name: "TimerOn", object: nil)
         

@@ -15,20 +15,26 @@ class ConfigurationEditorViewController: UIViewController {
             if let points = newPoints {
                 let highestPointRow = points.map({$0.0}).reduce(0) {$0 > $1 ? $0 : $1}
                 let highestPointCol = points.map({$0.1}).reduce(0) {$0 > $1 ? $0 : $1}
-                let minRows = highestPointRow + 1
-                let minCols = highestPointCol + 1
+                print(highestPointRow)
+                print(highestPointCol)
+                let minRows = highestPointRow + 5
+                let minCols = highestPointCol + 5
                 //Checking to see if previous row range is too small or too big
-                if engine.rows < minRows {
+                if engine.rows < minRows || engine.rows > minRows + 20 {
+                    print("changing")
                     engine.rows = minRows
                     gridView.rows = minRows
                 }else {
+                    print("same")
                     engine.rows = engine.rows
                     gridView.rows = engine.rows
                 }
-                if engine.cols < minCols {
+                if engine.cols < minCols || engine.cols > minCols + 20 {
+                    print("changing")
                     engine.cols = minCols
                     gridView.cols = minCols
                 }else {
+                    print("same")
                     engine.cols = engine.cols
                     gridView.cols = engine.cols
                 }

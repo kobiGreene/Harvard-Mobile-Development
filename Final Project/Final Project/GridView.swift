@@ -5,8 +5,8 @@ import UIKit
 @IBDesignable
 
 class GridView: UIView {
-    var mainRows = 20
-    var mainCols = 20
+    var mainRows = 10
+    var mainCols = 10
     @IBInspectable var rows: Int = 0 {
         didSet{
             //resetgrid
@@ -56,8 +56,6 @@ class GridView: UIView {
         }
     }
     
-    var lineRows: Int!
-    var lineCols: Int!
     var width: CGFloat!
     var height: CGFloat!
     override func drawRect(rect: CGRect) {
@@ -109,20 +107,19 @@ class GridView: UIView {
             oval.fill()
             oval.stroke()
         }else {
+            
             let gridPath = UIBezierPath()
             gridPath.lineWidth = gridWidth
-            lineRows = rows
-            lineCols = cols
             width = rect.width / CGFloat(mainCols - 1)
             height = rect.height / CGFloat(mainRows - 1)
             //Drawing the grid
-            for i in 0..<lineRows{
+            for i in 0..<mainRows{
                 gridPath.moveToPoint(CGPoint(x: bounds.origin.x, y: bounds.origin.y + height * CGFloat(i)))
                 gridPath.addLineToPoint(CGPoint(x: bounds.origin.x + width * CGFloat(cols) , y: bounds.origin.y + height * CGFloat(i)))
                 gridColor.setStroke()
                 gridPath.stroke()
             }
-            for i in 0..<lineCols {
+            for i in 0..<mainCols {
                 gridPath.moveToPoint(CGPoint(x: bounds.origin.x + width * CGFloat(i), y: bounds.origin.y))
                 gridPath.addLineToPoint(CGPoint(x: bounds.origin.x + width * CGFloat(i) , y: bounds.origin.y + height * CGFloat(cols)))
                 gridColor.setStroke()
