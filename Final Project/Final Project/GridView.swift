@@ -7,14 +7,14 @@ import UIKit
 class GridView: UIView {
     var mainRows = 10
     var mainCols = 10
-    @IBInspectable var rows: Int = 0 {
+    @IBInspectable var rows: Int = 10 {
         didSet{
             //resetgrid
             mainRows = rows
             setNeedsDisplay()
         }
     }
-    @IBInspectable var cols: Int = 0{
+    @IBInspectable var cols: Int = 10{
         didSet{
             mainCols = cols
             setNeedsDisplay()
@@ -110,8 +110,8 @@ class GridView: UIView {
             
             let gridPath = UIBezierPath()
             gridPath.lineWidth = gridWidth
-            width = rect.width / CGFloat(mainCols - 1)
-            height = rect.height / CGFloat(mainRows - 1)
+            width = rect.width / CGFloat(mainCols)
+            height = rect.height / CGFloat(mainRows)
             //Drawing the grid
             for i in 0..<mainRows{
                 gridPath.moveToPoint(CGPoint(x: bounds.origin.x, y: bounds.origin.y + height * CGFloat(i)))

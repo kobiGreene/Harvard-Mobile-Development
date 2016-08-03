@@ -13,10 +13,13 @@ class ConfigurationEditorViewController: UIViewController {
         super.viewDidLoad()
         if newPoints != nil {
             if let points = newPoints {
+                print("here")
                 let highestPointRow = points.map({$0.0}).reduce(0) {$0 > $1 ? $0 : $1}
                 let highestPointCol = points.map({$0.1}).reduce(0) {$0 > $1 ? $0 : $1}
                 print(highestPointRow)
                 print(highestPointCol)
+                print(engine.rows)
+                print(engine.cols)
                 let minRows = highestPointRow + 5
                 let minCols = highestPointCol + 5
                 //Checking to see if previous row range is too small or too big

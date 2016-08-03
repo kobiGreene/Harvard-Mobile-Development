@@ -61,17 +61,16 @@ class InstrumentationViewController: UIViewController,UITextFieldDelegate {
     func textFieldDidEndEditing(textField: UITextField) {
         mySwitch.setOn(false, animated: true)
         if textField.tag == 1 {
-           
             numberOfRows.text = textField.text!
             if textField.text != nil && textField.text != " " && textField.text != ""{
                 var userRows = Int(numberOfRows.text!)!
-                engine.rows = Int(numberOfRows.text!)!
+                engine.rows = userRows
                 }
         }else if textField.tag == 2{
             numberOfCols.text = textField.text!
             if textField.text != nil && textField.text != " " && textField.text != ""{
                 var userCols = Int(numberOfCols.text!)!
-                    engine.cols = Int(numberOfCols.text!)!
+                    engine.cols = userCols
                
             }
         }
